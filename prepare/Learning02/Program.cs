@@ -4,6 +4,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Learning02 World!");
+        Person fred = new Person();
+        Person steve = new Person();
+
+        
     }
 }
