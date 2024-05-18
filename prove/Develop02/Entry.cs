@@ -24,12 +24,12 @@ class Entry
     public string StartEntry()
     {
         Console.WriteLine(_prompt);
-        string journal = Console.ReadLine();
-        return journal;
+        _journal = Console.ReadLine();
+        return _journal;
 
     }
     public string Write()
     {     
-        return ($"{_time}\n{_prompt}\n\n{_journal} ");
+        return ($"{_time}\n{_prompt}\n{_journal}");
     }
 };
