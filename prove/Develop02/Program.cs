@@ -4,6 +4,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        Entry time = new Entry();
+        Console.WriteLine($"{time.GetTime()}");
+
+
+
+        Journal test = new Journal();
+        test.AddEntry();
+        test.AddEntry();
+        test.DisplayAll();
+
     }
 }
