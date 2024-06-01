@@ -25,7 +25,6 @@ public class Word
         else
             foreach (char c in word)
             Console.Write("_");
-        // PrintAll();
         
     }
     

@@ -19,10 +19,10 @@ public class Scripture
     private void SplitVerse(string wholeText) //splits all the text based on if it sees a number
     {
         string[] verse = Regex.Split(wholeText,@"(?<=\D)(?=\d+)"); //fancy code from claude.ai (?<=\D): () means keep what you find, ?<= means look behind to make sure you're in the righ place or somthing, \D means check that it wasn't an integer (the thing behind wasn't). (?=\d+) it means the same thing except ?= means look ehead and /d+ means check that the thing ahead is a number (then don't split here) the + means it can be any number from 1 to anything.
-        foreach (string i in verse)
+        foreach (string i in verse) // all the text has been split before the numbers
         {
-            Verse stuff = new Verse(i);
-            allVerses.Add(stuff);
+            Verse stuff = new Verse(i); //make a new verse instance
+            allVerses.Add(stuff); //add that verse to the list of verse
             
             
         }
@@ -30,49 +30,49 @@ public class Scripture
     private void MakeTotalList() //this is making that big list of words to hide
     {
         
-        foreach (Verse verse in allVerses)
+        foreach (Verse verse in allVerses) //from all the verses
         {
-            foreach (Word word in verse.GetAllWords())
+            foreach (Word word in verse.GetAllWords())//get all the words
             {
                 
-                if (word.GetWordValue() == true)
+                if (word.GetWordValue() == true)//if that word tells us it's not a space or a punctiaon mark
                 {
-                    allShown.Add(word);
+                    allShown.Add(word);//add it to the list of availble words that can be hidden
                 }
             }
         }
     }
-    public void RunScripture()//this calls all of the different 
+    public void RunScripture()//this prints all the scriptures and then turns the next few words to hidden
     {
-        Console.WriteLine(refferance);
         do
         {
-            Console.Clear();
-            foreach (Verse verse in allVerses)
+            Console.Clear(); //clears the console
+            Console.WriteLine(refferance); //prints the refferance first and formost
+            foreach (Verse verse in allVerses) //for each verse run it's print function
             {
                 verse.PrintVerse();
             }
-            action = Console.ReadLine().ToLower();
-            HideNextBatch();
-            loopAmount++;
+            action = Console.ReadLine().ToLower(); //stop and wait for the quit or really anything so you can see stuff
+            HideNextBatch();//run the hide function to hide the next few words
+            loopAmount++; //add to the loop amount
             
             
-        } while(loopAmount < totalIterations && action != "quit");
+        } while(loopAmount < totalIterations && action != "quit"); // if the acumulated amount of loops is less than the amount I said it should loop and nobody typed quit keep going. If either become false the loop ends
     }
-      private void HideNextBatch()
+      private void HideNextBatch()//heres how we decide what to hide
     {
         Random random = new Random();
-        for (int i = 0; i < difficulty; i++)
+        for (int i = 0; i < difficulty; i++)// this will hide one word for the amount the difficulty sets
         {
-            if (allShown.Count() != 0)
+            if (allShown.Count() != 0) //make sure there is still stuff to hide
             {
-                int toHide = random.Next(0,allShown.Count);
-                allShown[toHide].SetHidden();
-                allShown.RemoveAt(toHide); 
+                int toHide = random.Next(0,allShown.Count); // get a random integer between 0 and how ever long the avilble words list is.
+                allShown[toHide].SetHidden();// set that word to hidden
+                allShown.RemoveAt(toHide); // and remove that word from the list so it will give a true reading next time
             }
             else
             {
-                break;
+                break; //if the available list is 0 don't run this function anymore
             }
 
         }
