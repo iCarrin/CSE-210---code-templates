@@ -62,7 +62,7 @@ public class Scripture
       private void HideNextBatch()//heres how we decide what to hide
     {
         Random random = new Random();
-        for (int i = 0; i < difficulty; i++)// this will hide one word for the amount the difficulty sets
+        for (int i = 0; i < 5; i++)// this will hide one word for the amount the difficulty sets
         {
             if (allShown.Count() != 0) //make sure there is still stuff to hide
             {
