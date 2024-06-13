@@ -1,29 +1,49 @@
-class Activity
+abstract class Activity
 {
-    private int durration;
     private int pause = 1000;
     public Activity()
     {
         
     }
+    
     public int GetDurration()
     {
-        Console.WriteLine("How long do you want to do this acticity for?");
+        
+        Console.WriteLine("How long do you want to do this acticity for? (in seconds)");
         int durration = int.Parse(Console.ReadLine());
+        //Console.WriteLine("the value give was {}")
         return durration;
     }
-    public int SetPause(int pause)
+    // public int SetPause(int pause)
+    // {
+    //     return pause;
+    // }
+    public void Wait(int durration)
     {
-        return pause;
+        string[] animationList = {"╔═╗\n╚═╝"," ═╗\n╚═╝","  ╗\n╚═╝","   \n╚═╝","   \n╚═ ","   \n╚  ","╔  \n   ","╔═ \n   ","╔═╗\n   ","╔═╗\n  ╝","╔═╗\n ═╝","╔═╗\n╚═╝"};
+        DateTime startTime = DateTime.Now;
+        DateTime futureTime = startTime.AddSeconds(durration);
+        DateTime currentTime = DateTime.Now;
+        while(currentTime < futureTime)
+        {   
+            Console.CursorVisible = false;
+            for (int i = 0; i < animationList.Length; i++)
+               {
+                Console.Write(animationList[i]);
+                Thread.Sleep(100);
+                Console.SetCursorPosition(0,Console.CursorTop-1);
+                Console.Write("\0");
+                currentTime = DateTime.Now;
+               }
+        }
+        Console.CursorVisible = true;
     }
-    public void Pause()
+    public void DisplayBye(int time)
     {
-        Thread.Sleep(pause);
-    }
-    public void DisplayBye()
-    {
-        Console.WriteLine($"You did this for {durration}. Have a peaceful day");
+        Console.WriteLine($"You did this for {time} seconds. Have a peaceful day");
     }
 
-
+     public abstract void Run();
+    
+    
 }
