@@ -9,7 +9,7 @@ class ListingActivity : Activity
     }
     public void ExplainActivity()
     {
-        Console.WriteLine("sub bru. Here's the activity");
+        Console.WriteLine("Welcome to the Enumeration activity. This activity will help you reflect on the things in your life by having you list them all out. We'll give you a prompt and then the activity will start.");
     }
     public void ShowHowMany()
     {
@@ -17,6 +17,7 @@ class ListingActivity : Activity
     }
     public override void Run()
     {
-    Console.WriteLine("Hello World");
+        ExplainActivity();
+
     }
 }

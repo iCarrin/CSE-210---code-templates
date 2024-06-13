@@ -1,6 +1,6 @@
 abstract class Activity
 {
-    private int pause = 1000;
+    // private int pause = 1000;
     public Activity()
     {
         
@@ -27,10 +27,11 @@ abstract class Activity
         while(currentTime < futureTime)
         {   
             Console.CursorVisible = false;
+            // Thread.Sleep(100);
             for (int i = 0; i < animationList.Length; i++)
                {
-                Console.Write(animationList[i]);
                 Thread.Sleep(100);
+                Console.Write(animationList[i]);
                 Console.SetCursorPosition(0,Console.CursorTop-1);
                 Console.Write("\0");
                 currentTime = DateTime.Now;
