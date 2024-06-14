@@ -1,6 +1,6 @@
 abstract class Activity
 {
-    // private int pause = 1000;
+    Random random= new Random();    
     public Activity()
     {
         
@@ -14,34 +14,70 @@ abstract class Activity
         //Console.WriteLine("the value give was {}")
         return durration;
     }
-    // public int SetPause(int pause)
-    // {
-    //     return pause;
-    // }
-    public void Wait(int durration)
+
+    public void Wait(int timeToWait)
     {
-        string[] animationList = {"╔═╗\n╚═╝"," ═╗\n╚═╝","  ╗\n╚═╝","   \n╚═╝","   \n╚═ ","   \n╚  ","╔  \n   ","╔═ \n   ","╔═╗\n   ","╔═╗\n  ╝","╔═╗\n ═╝","╔═╗\n╚═╝"};
+        string[] animationList = 
+        {
+        "╔══╗\n║  ║\n╚══╝",
+        "╔═ ╗\n║  ║\n╚══╝",
+        "╔═  \n║  ║\n╚══╝",
+        "╔═  \n║   \n╚══╝",
+        "╔═  \n║  \n╚══ ",
+        "╔═  \n║  \n╚═  ",
+        "╔═  \n║   \n╚   ",
+        "╔═  \n║   \n    ",
+        "╔═ \n    \n    ",
+        " ═ \n    \n    ",
+        "   \n   \n    ",
+        "  ═ \n    \n    ",
+        "  ═╗\n    \n    ",
+        "  ═╗\n   ║\n    ",
+        "  ═╗\n   ║\n   ╝",
+        "  ═╗\n   ║\n  ═╝",
+        "  ═╗\n   ║\n ══╝",
+        "  ═╗\n   ║\n╚══╝",
+        "  ═╗\n║  ║\n╚══╝",
+        "╔ ═╗\n║  ║\n╚══╝",
+        "╔══╗\n║  ║\n╚══╝"
+        };
         DateTime startTime = DateTime.Now;
-        DateTime futureTime = startTime.AddSeconds(durration);
+        DateTime futureTime = startTime.AddSeconds(timeToWait);
         DateTime currentTime = DateTime.Now;
         while(currentTime < futureTime)
         {   
             Console.CursorVisible = false;
-            // Thread.Sleep(100);
+            TimeSpan timeWait = futureTime-currentTime;
             for (int i = 0; i < animationList.Length; i++)
                {
+
                 Thread.Sleep(100);
                 Console.Write(animationList[i]);
+                Console.SetCursorPosition(1,Console.CursorTop-1);
+                Console.CursorVisible = false;
+                Console.Write(timeWait.Seconds);
+                Console.CursorVisible = false;
                 Console.SetCursorPosition(0,Console.CursorTop-1);
-                Console.Write("\0");
+                // Console.Write("\033[1K");
                 currentTime = DateTime.Now;
                }
         }
+        
         Console.CursorVisible = true;
+        Console.Clear();
+    }
+    public void DisplayPrompt(List<string> which, int waitTime)
+    {
+        int pos = random.Next(0, which.Count);
+        Console.WriteLine(which[pos]);
+        Wait(waitTime);
+        
     }
     public void DisplayBye(int time)
     {
         Console.WriteLine($"You did this for {time} seconds. Have a peaceful day");
+        Thread.Sleep(5000);
+        Console.Clear();
     }
 
      public abstract void Run();

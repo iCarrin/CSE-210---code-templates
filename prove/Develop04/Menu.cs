@@ -1,30 +1,48 @@
 class Menu
 {
-    // public void CallMenu()
-    // {
-    //  int state = 20;
-    //     do 
-    //     {
-    //         state = current.Menu();
-    //         switch (state)
-    //         {
-    //             case 1:
-    //                 current.AddEntry();
-    //                 break;
-    //             case 2:
-    //                 current.DisplayAll();
-    //                 break;
-    //             case 3:
-    //                 current.SaveJournal();
-    //                 break;
-    //             case 4:
-    //                 current.LoadJournal();
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     } while (state != 0);
-    // }
+    int state = 2000;
+    public Menu ()
+    {
+
+    }
+    private int AskMenu()
+    {
+        Console.WriteLine("Breathing : 1");
+        Console.WriteLine("Reflect : 2");
+        Console.WriteLine("Enumerate : 3");
+        Console.WriteLine("Quit : 0");
+        int state = int.Parse(Console.ReadLine() );
+        return state;
+    }
+    public void CallMenu()
+    {
+
+        do 
+        {
+            state = AskMenu();
+            
+            switch (state)
+            {
+                case 1:
+                    Console.Clear();
+                    BreathingActivity breathingActivity = new BreathingActivity();
+                    breathingActivity.Run();
+                    break;
+                case 2:
+                    Console.Clear();
+                    ReflectionActivity reflectionActivity = new ReflectionActivity();
+                    reflectionActivity.Run();
+                    break;
+                case 3:
+                    Console.Clear();
+                    ListingActivity listingActivity = new ListingActivity();
+                    listingActivity.Run();
+                    break;
+                default:
+                    break;
+            }
+        } while (state != 0);
+    }
 
 
 }

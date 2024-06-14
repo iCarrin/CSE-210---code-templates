@@ -55,25 +55,29 @@ class ReflectionActivity : Activity
     }
     private void ExplainReflection()
     {
-        Console.WriteLine("Welcome to the reflection activity. We will give you a prompt to reflect upon, and, once you've had time to ponder it, we will give you a seires of questions to help you reflect on that prompt. The time will start after you have reflected on the prompt a little.");
+        Console.WriteLine("Welcome to the reflection activity.");
+        Thread.Sleep(1000);
+        Console.WriteLine("We will give you a prompt to reflect upon, and, once you've had time to ponder it, we will give you a seires of questions to help you reflect on that prompt. The time will start after you have reflected on the prompt a little.");
+        Thread.Sleep(5000);
     }
-    private void DisplayPrompt(List<string> which, int waitTime)
-    {
-        int pos = random.Next(0, which.Count);
-        Console.WriteLine(which[pos]);
-        Wait(waitTime);
+
+    // private void DisplayPrompt(List<string> which, int waitTime)
+    // {
+    //     int pos = random.Next(0, which.Count);
+    //     Console.WriteLine(which[pos]);
+    //     Wait(waitTime);
         
-    }
+    // }
     private void Reflect()
     {
-        //Console.WriteLine("Your reflection time will start once you are done podering this question");
-        DisplayPrompt(postulations, 20);
+        Console.Clear();
+        DisplayPrompt(postulations, 10);
         DateTime startTime = DateTime.Now;
         DateTime futureTime = startTime.AddSeconds(durration);
         DateTime currentTime = DateTime.Now;
         while(currentTime < futureTime)
         {
-            DisplayPrompt(reflections, 10);
+            DisplayPrompt(reflections, 5);
             currentTime = DateTime.Now;
         }
 

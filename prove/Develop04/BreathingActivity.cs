@@ -9,8 +9,9 @@ class BreathingActivity : Activity
     private void Explain()
     {
         Console.WriteLine("Hi welcome to breathing activity.");
+        Thread.Sleep(2000);
         Console.WriteLine("This activity will take you through a breathing exercise to help relax you.");
-
+        Thread.Sleep(5000);
     }
     private void Pause(string inOut, int time)
     {
@@ -31,9 +32,9 @@ class BreathingActivity : Activity
         while(currentTime < futureTime)
         {
             Pause("Breath in", 800);
-            Pause("Hold", 1000);
+            Pause("Hold", 900);
             Pause("Breath out", 1100);
-            Pause("Hold", 1000);
+            Pause("Hold", 900);
             currentTime = DateTime.Now;
         }
 
