@@ -11,7 +11,7 @@ class BreathingActivity : Activity
         Console.WriteLine("Hi welcome to breathing activity.");
         Thread.Sleep(2000);
         Console.WriteLine("This activity will take you through a breathing exercise to help relax you.");
-        Thread.Sleep(5000);
+        Thread.Sleep(4000);
     }
     private void Pause(string inOut, int time)
     {
@@ -43,18 +43,9 @@ class BreathingActivity : Activity
     {
         Explain();
         durration = GetDurration();
-        // TimeActivity(durration, Breath());
         Breath();
         DisplayBye(durration);
         
     }
-    // private delegate void Breath()
-    // {
-    //         Pause("Breath in", 800);
-    //         Pause("Hold", 1000);
-    //         Pause("Breath out", 1100);
-    //         Pause("Hold", 1000);
-
-    // }
-    
+ 
 }

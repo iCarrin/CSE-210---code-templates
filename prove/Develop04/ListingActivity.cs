@@ -1,6 +1,6 @@
 class ListingActivity : Activity
 {
-    int durration;
+    private int durration;
     private List<string> prompts = new List<string>
     {
         "Who are people that you appreciate?",
@@ -15,12 +15,12 @@ class ListingActivity : Activity
     {
         
     }
-    public void ExplainActivity()
+    private void ExplainActivity()
     {
         Console.WriteLine("Welcome to the Enumeration activity.");
         Thread.Sleep(2000);
         Console.WriteLine("This activity will help you reflect on the things in your life by having you list them all out. We'll give you a prompt and then the activity will start.");
-        Thread.Sleep(5000);
+        Thread.Sleep(4000);
     }
 
     private void List()
@@ -39,7 +39,7 @@ class ListingActivity : Activity
 
     }
     
-    public void ShowHowMany()
+    private void ShowHowMany()
     {
         Console.WriteLine($"You listed {answerCount} things");
     }

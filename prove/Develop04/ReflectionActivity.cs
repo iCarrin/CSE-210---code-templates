@@ -47,7 +47,7 @@ class ReflectionActivity : Activity
         "How has this experience shaped your future actions or decisions?"
     };  
     Random random= new Random(); 
-    int durration;
+    private int durration;
 
     public ReflectionActivity()
     {
@@ -58,16 +58,9 @@ class ReflectionActivity : Activity
         Console.WriteLine("Welcome to the reflection activity.");
         Thread.Sleep(1000);
         Console.WriteLine("We will give you a prompt to reflect upon, and, once you've had time to ponder it, we will give you a seires of questions to help you reflect on that prompt. The time will start after you have reflected on the prompt a little.");
-        Thread.Sleep(5000);
+        Thread.Sleep(4000);
     }
 
-    // private void DisplayPrompt(List<string> which, int waitTime)
-    // {
-    //     int pos = random.Next(0, which.Count);
-    //     Console.WriteLine(which[pos]);
-    //     Wait(waitTime);
-        
-    // }
     private void Reflect()
     {
         Console.Clear();

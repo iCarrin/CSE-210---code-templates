@@ -1,23 +1,7 @@
 abstract class Activity
 {
-    Random random= new Random();    
-    public Activity()
-    {
-        
-    }
-    
-    public int GetDurration()
-    {
-        
-        Console.WriteLine("How long do you want to do this acticity for? (in seconds)");
-        int durration = int.Parse(Console.ReadLine());
-        //Console.WriteLine("the value give was {}")
-        return durration;
-    }
-
-    public void Wait(int timeToWait)
-    {
-        string[] animationList = 
+    Random random= new Random();   
+    private string[] animationList = 
         {
         "╔══╗\n║  ║\n╚══╝",
         "╔═ ╗\n║  ║\n╚══╝",
@@ -40,7 +24,24 @@ abstract class Activity
         "  ═╗\n║  ║\n╚══╝",
         "╔ ═╗\n║  ║\n╚══╝",
         "╔══╗\n║  ║\n╚══╝"
-        };
+        }; 
+    public Activity()
+    {
+        
+    }
+    
+    public int GetDurration()
+    {
+        
+        Console.WriteLine("How long do you want to do this acticity for? (in seconds)");
+        int durration = int.Parse(Console.ReadLine());
+        //Console.WriteLine("the value give was {}")
+        return durration;
+    }
+
+    public void Wait(int timeToWait)
+    {
+        
         DateTime startTime = DateTime.Now;
         DateTime futureTime = startTime.AddSeconds(timeToWait);
         DateTime currentTime = DateTime.Now;
@@ -54,11 +55,9 @@ abstract class Activity
                 Thread.Sleep(100);
                 Console.Write(animationList[i]);
                 Console.SetCursorPosition(1,Console.CursorTop-1);
-                Console.CursorVisible = false;
                 Console.Write(timeWait.Seconds);
-                Console.CursorVisible = false;
                 Console.SetCursorPosition(0,Console.CursorTop-1);
-                // Console.Write("\033[1K");
+                
                 currentTime = DateTime.Now;
                }
         }
@@ -76,7 +75,7 @@ abstract class Activity
     public void DisplayBye(int time)
     {
         Console.WriteLine($"You did this for {time} seconds. Have a peaceful day");
-        Thread.Sleep(5000);
+        Thread.Sleep(4000);
         Console.Clear();
     }
 
