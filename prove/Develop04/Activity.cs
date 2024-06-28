@@ -52,12 +52,16 @@ abstract class Activity
             for (int i = 0; i < animationList.Length; i++)
                {
 
-                Thread.Sleep(100);
+                Thread.Sleep(50);
+                Console.CursorVisible = false;
                 Console.Write(animationList[i]);
+                Console.CursorVisible = false;
                 Console.SetCursorPosition(1,Console.CursorTop-1);
+                Console.CursorVisible = false;
                 Console.Write(timeWait.Seconds);
+                Console.CursorVisible = false;
                 Console.SetCursorPosition(0,Console.CursorTop-1);
-                
+                Console.CursorVisible = false;
                 currentTime = DateTime.Now;
                }
         }
