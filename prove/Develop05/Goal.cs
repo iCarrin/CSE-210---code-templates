@@ -42,17 +42,17 @@ abstract class Goal
         //isItTure ? YES : NO;
         return check;
     }
-    protected virtual int GivePoints()
-    {
-        //Console.WriteLine(pointsGiven);
-        //this needs new stuf
-        //Its going to immiediatly pull the old score from the file, add this amount, and rewrtie it to the file.
-        return 12;
-    }
-       public virtual void MarkComplete()
+    // protected virtual int GivePoints(int pointsGiven)
+    // {
+    //     //Console.WriteLine(pointsGiven);
+    //     //this needs new stuf
+    //     //Its going to immiediatly pull the old score from the file, add this amount, and rewrtie it to the file.
+    //     return pointsGiven;
+    // }
+       public virtual int MarkComplete()
     {
         TickBox();
-        GivePoints();
+        return pointsGiven;
     }
     public override string ToString()
     {

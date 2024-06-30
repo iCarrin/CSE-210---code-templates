@@ -10,6 +10,7 @@ class ChecklistGoal : Goal
     private int timesChecked;
     private string goalName;
     // private int pointsGiven;
+    // private int pointsGiven;
     //string timesCheckedOff ;
 
 
@@ -20,8 +21,9 @@ class ChecklistGoal : Goal
         timesChecked = 0;
 
 
-        bigPoints = pointsGiven-smallPoints*timesToCheck; //total minus whats subtracted (this avoids the odd points)
         smallPoints = pointsGiven/2/timesToCheck; //take points divde in half take that half and divid by total time
+        bigPoints = pointsGiven-(smallPoints*timesToCheck); //total minus whats subtracted (this avoids the odd points)
+
     }
     public ChecklistGoal(string goalName, int pointsGiven, int timesToCheck, int timesChecked) : base(goalName,  pointsGiven) //This is for testing and to rebuild
     {
@@ -30,31 +32,36 @@ class ChecklistGoal : Goal
         this.timesChecked = timesChecked;
 
 
-        bigPoints = pointsGiven-smallPoints*timesToCheck; //total minus whats subtracted (this avoids the odd points)
         smallPoints = pointsGiven/2/timesToCheck; //take points divde in half take that half and divid by total time
+        bigPoints = pointsGiven-(smallPoints*timesToCheck); //total minus whats subtracted (this avoids the odd points)
+
     }
-    protected override int GivePoints()
+    public override int MarkComplete()//works as intended
     {
-        if (timesToCheck > 0)
+        
+        if (timesToCheck > timesChecked)
         {
             actuallPointsGiven = smallPoints;
         }
-        else if (timesToCheck == 0)
+        else if (timesChecked == timesToCheck)
         {
-            actuallPointsGiven = bigPoints;
+            
+            actuallPointsGiven = smallPoints+bigPoints;
         }
         // else 
         // {
         //     actuallPointsGiven = 0; //shouldn't be needed
         // }
+        TickBox();
+        timesChecked ++;
         return actuallPointsGiven;
     }
-    public override void MarkComplete()
-    {
-        TickBox();
-        GivePoints();
-        timesChecked ++;
-    }
+    // public override void MarkComplete()
+    // {
+    //     TickBox();
+    //     GivePoints();
+    //     timesChecked ++;
+    // }
     public override string ToString()
     {
         return $"[{GiveBoxValue()}] {goalName} for {actuallPointsGiven} points {timesChecked}/{timesToCheck}";

@@ -41,7 +41,7 @@ class Journal
             }
         }
     }
-    Console.WriteLine(Write())
+   //Console.WriteLine(Write())
     public List<string> LoadJournal()
     {
         Console.WriteLine("What file would you like ot load from?");
