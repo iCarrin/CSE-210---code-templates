@@ -1,64 +1,83 @@
 class Menu
 {
     int state = 2000;
+    Manager currentManager = new Manager();
     string menuList = "Load Goals : 1\nSave Goals : 2\nCheck Off Goals : 3\nCreate Goal : 4\nQuit Program : 0";
     public Menu ()
     {
 
     }
-    // private int AskMenu() ///I wanted to display the menu, then the goals, and then ask what they wanted to do. so i ended up nixing this whole method in favor of a string and a int.parse statment
+    // public Manager PreMenu ()
     // {
-    //     Console.WriteLine(menuList);//I have it as a list here to help with writing the console. This way I can write the menue else where without having to call the AskMenu method
-    //     int state = int.Parse(Console.ReadLine() );
-    //     return state;
+    //     Console.WriteLine("Would you like to load an old goal list or start a new one? (Old/New) ");
+    //     string answer = Console.ReadLine().ToUpper();
+    //     while (answer != "OLD" && answer != "NEW")
+    //     {  
+    //             Console.WriteLine("I'm sorry that was not a valid option "); 
+    //     }
+    //     if (answer.ToUpper() == "OLD")
+    //     {
+    //         Manager currentManager = new Manager();
+    //         currentManager.LoadGoalFile();
+    //         return currentManager;
+    //     }
+    //     else
+    //     {
+    //         Manager currentManager = new Manager();
+    //         return currentManager;
+    //     }
     // }
-    public void CallMenu(Goal test1, Goal test2, Goal test3)
+    // private Manager CreateManager()
+    // {
+    //     return new Manager();
+    // }
+    public void CallMenu()
     {
-        Manager theManager = new Manager();
+        
 
 
-        theManager.AddGoal(test1);
-        theManager.AddGoal(test2);
-        theManager.AddGoal(test3);
         do 
         {
-            theManager.DisplayScore();
+            // preMenu();
+            Console.Clear();
+            currentManager.DisplayScore();
             Console.WriteLine(menuList);
             Console.WriteLine();
-            theManager.ListOutGoals();
+            int goalAmount = currentManager.ListOutGoals();
             state = int.Parse(Console.ReadLine());
 
             switch (state)
             {
-                case 1:
+                case 1://load goalasdf
                     Console.Clear();
                     Console.WriteLine(menuList);
-                    //load all the goals and list them
+                    currentManager.LoadGoalFile();
                     break;
-                case 2:
+                case 2://save goal stuff
                     Console.Clear();
-
+                    Console.WriteLine(menuList);
+                    currentManager.SaveGoalFile();
                     break;
-                case 3:
+                case 3://check off stuff
                     Console.Clear();
-                    theManager.ListOutGoals();
+                    currentManager.ListOutGoals();//shows just your goals
                     Console.WriteLine("Which goal are you checking off?");
-                    int checkedOff = int.Parse(Console.ReadLine())-1;
+                    int checkedOff = int.Parse(Console.ReadLine())-1; // gets the number and addjusts for coding
                     Console.Clear();
                     Thread.Sleep(800);
-                    theManager.PrintGoal(checkedOff);
+                    currentManager.PrintGoal(checkedOff);//cool dramatic clearing, waiting, showing, waiting, checking, showing, waiting, clearing, and returning back to normal by breaking
                     Thread.Sleep(2000);
-                    theManager.CheckGoal(checkedOff);
-                    theManager.PrintGoal(checkedOff);
+                    currentManager.CheckGoal(checkedOff);
+                    currentManager.PrintGoal(checkedOff);
                     Thread.Sleep(1000);
                     Console.Clear();                   
                     break;
-                case 4:
+                case 4://create goal
                     Console.Clear();
-                    theManager.CreateGoal();
+                    currentManager.CreateGoal();
                     break;
                 case 0:
-                Console.Clear();
+                Console.Clear();// breaks out of while loop which end the method which is the last method in the program
                 
                 break;
                 default:

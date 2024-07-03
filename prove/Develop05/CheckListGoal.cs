@@ -3,14 +3,14 @@ class ChecklistGoal : Goal
     /*
     still need to send the points some where and save goal to a file.
     */
-    private int timesToCheck;
-    private int actuallPointsGiven;
-    private int smallPoints;
-    private int bigPoints;
-    private int timesChecked;
-    private string goalName;
-    // private int pointsGiven;
-    // private int pointsGiven;
+    /*private*/ public  int timesToCheck;
+    /*private*/ public  int actuallPointsGiven;
+    /*private*/ public  int smallPoints;
+    /*private*/ public  int bigPoints;
+    /*private*/ public  int timesChecked;
+    // /*private*/ public string goalName;
+    // /*private*/ public  int pointsGiven;
+    // /*private*/ public  int pointsGiven;
     //string timesCheckedOff ;
 
 
@@ -27,7 +27,7 @@ class ChecklistGoal : Goal
     }
     public ChecklistGoal(string goalName, int pointsGiven, int timesToCheck, int timesChecked) : base(goalName,  pointsGiven) //This is for testing and to rebuild
     {
-        this.goalName = goalName;
+        // this.goalName = goalName;
         this.timesToCheck = timesToCheck;
         this.timesChecked = timesChecked;
 

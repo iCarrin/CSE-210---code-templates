@@ -1,7 +1,9 @@
+using System.Text.Json;
 class Manager
 {
-    private int additionalScore;
-    private List<Goal> allGoals = new List<Goal>();
+
+    /*private*/ public int additionalScore;
+    /*private*/ public List<Goal> allGoals = new List<Goal>();
 
     public Manager ()
     {
@@ -9,9 +11,9 @@ class Manager
     }
     public void DisplayScore()
     {
-        Console.WriteLine(additionalScore);
+        Console.WriteLine($" current score: {additionalScore}");
     }
-    private static int AskMenu()//works
+    /*private*/ public static int AskMenu()//works
     {
         Console.WriteLine("Simple Goal : 1");
         Console.WriteLine("Eternal Goal : 2");
@@ -75,32 +77,63 @@ class Manager
        additionalScore += allGoals[goalNumber-1].MarkComplete();
 
     }
-    public void ListOutGoals()//works as intended
+    public int ListOutGoals()//works as intended
     {
-        // Console.Clear();
         for (int i = 0; i < allGoals.Count; i++)
         {
             Console.WriteLine($"{i+1} : {allGoals[i]}");
         } 
+        return allGoals.Count();
     }
     public void PrintGoal(int i)//works
     {
         Console.WriteLine(allGoals[i]);
     }
-    // public void LoadGoalFile()
-    // {
-    //     Console.WriteLine("What file would you like to load from?");
-    //     string location = Console.ReadLine();
-    //     string[] oldJGoalList = System.IO.File.ReadAllLines(location);
-    //     List<Goals> overwrite = new List<Goals>();
-    //     foreach (string j in oldJGoalList)
-    //         {
-    //             overwrite.Add(j);
-                
-    //             //string[] eachEntry = j.Split("\", \"");
-    //         }
-    //         allGoals = overwrite;
-    //    return allGoals;
-    // }
+    public void LoadGoalFile()
+    {
+        if (allGoals.Count() > 0)
+        {
+            Console.WriteLine("Do you wish to save the current goals before loading new ones? (Y/N)");
+            string answer = Console.ReadLine().ToUpper();
+            while (answer != "Y" && answer != "N")
+            {
+                Console.WriteLine("I'm sorry that was not a valid option ");
+                answer = Console.ReadLine().ToUpper();
+            }
+            if (answer == "Y")
+            {
+                SaveGoalFile();
+                allGoals = ReadJsonFileIntoListOfGoals();
+            }
+            else
+            {
+                allGoals = ReadJsonFileIntoListOfGoals();
+            }            
+        } 
+        else
+        {
+            allGoals = ReadJsonFileIntoListOfGoals();
+        }
+    }
+    /*private*/ public List<Goal> ReadJsonFileIntoListOfGoals()
+    {
+        Console.WriteLine("What file would you like to load from?");
+        string location = Console.ReadLine();
+        additionalScore = int.Parse(File.ReadAllText(location+"-toteScore"));
+        string jsonString = File.ReadAllText(location);
+        
+        return JsonSerializer.Deserialize<List<Goal>>(jsonString);
+        
+    }
+    public void SaveGoalFile()
+    {
+        Console.WriteLine("What file would you like to save to?");
+        string location = Console.ReadLine();
+        string jsonGoalList = JsonSerializer.Serialize(allGoals);
+        string score = JsonSerializer.Serialize(additionalScore);
+        File.WriteAllText(location+"-toteScore", jsonGoalList); 
+        File.WriteAllText(location, jsonGoalList);  
+
+    }
 }
 

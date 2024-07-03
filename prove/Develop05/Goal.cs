@@ -1,10 +1,10 @@
 abstract class Goal
 {
-    private bool isChecked = false;
+    /*private*/ public  bool isChecked = false;
     public string check = " ";
-    private string goalName;
+    /*private*/ public  string goalName;
     protected int pointsGiven;
-    // private string timesCheckedOff;
+    // /*private*/ public  string timesCheckedOff;
 
 
     public Goal(string goalName, int pointsGiven)
