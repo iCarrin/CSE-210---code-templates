@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 class Menu
 {
     int state = 2000;

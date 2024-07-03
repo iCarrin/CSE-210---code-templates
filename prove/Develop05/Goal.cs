@@ -1,10 +1,14 @@
+using Newtonsoft.Json;
+
 abstract class Goal
 {
-    /*private*/ public  bool isChecked = false;
+    private bool isChecked = false;
     public string check = " ";
-    /*private*/ public  string goalName;
+    [JsonProperty]
+    private string goalName;
+    [JsonProperty]
     protected int pointsGiven;
-    // /*private*/ public  string timesCheckedOff;
+    // private string timesCheckedOff;
 
 
     public Goal(string goalName, int pointsGiven)
@@ -59,6 +63,6 @@ abstract class Goal
         
         return $"[{GiveBoxValue()}] {goalName} for {pointsGiven} points";
     }
-     public abstract void WriteToFile();
+    //  public abstract void WriteToFile();
 
 }

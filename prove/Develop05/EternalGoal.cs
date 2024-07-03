@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 class EternalGoal : Goal
 {
      public EternalGoal() : base()
@@ -10,10 +12,10 @@ class EternalGoal : Goal
     }
 
     
-    public override void WriteToFile()
-    {
-        TickBox();
-        //Json file crap here
-        //also call mark complete here
-    }
+    // public override void WriteToFile()
+    // {
+    //     TickBox();
+    //     //Json file crap here
+    //     //also call mark complete here
+    // }
 }

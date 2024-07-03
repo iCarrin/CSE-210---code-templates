@@ -1,16 +1,21 @@
+using Newtonsoft.Json;
+
 class ChecklistGoal : Goal
 {
     /*
     still need to send the points some where and save goal to a file.
     */
-    /*private*/ public  int timesToCheck;
-    /*private*/ public  int actuallPointsGiven;
-    /*private*/ public  int smallPoints;
-    /*private*/ public  int bigPoints;
-    /*private*/ public  int timesChecked;
-    // /*private*/ public string goalName;
-    // /*private*/ public  int pointsGiven;
-    // /*private*/ public  int pointsGiven;
+    [JsonProperty]
+    private int timesToCheck;
+    private int actuallPointsGiven;
+    private int smallPoints;
+    private int bigPoints;
+    [JsonProperty]
+    private int timesChecked;
+    [JsonProperty]
+    private string goalName;
+    // private int pointsGiven;
+    // private int pointsGiven;
     //string timesCheckedOff ;
 
 
@@ -27,7 +32,7 @@ class ChecklistGoal : Goal
     }
     public ChecklistGoal(string goalName, int pointsGiven, int timesToCheck, int timesChecked) : base(goalName,  pointsGiven) //This is for testing and to rebuild
     {
-        // this.goalName = goalName;
+        this.goalName = goalName;
         this.timesToCheck = timesToCheck;
         this.timesChecked = timesChecked;
 
@@ -73,15 +78,15 @@ class ChecklistGoal : Goal
     
     //}
 
-    public override void WriteToFile()
-    {
-        if (timesToCheck != timesChecked)  // this is here to undo your checklist goal if it's already completed we can leave it
+    // public override void WriteToFile()
+    // {
+    //     if (timesToCheck != timesChecked)  // this is here to undo your checklist goal if it's already completed we can leave it
 
-        {
-            TickBox();
-        } 
-        //Json file crap here
-        //also call the mark complete here
-    }
+    //     {
+    //         TickBox();
+    //     } 
+    //     //Json file crap here
+    //     //also call the mark complete here
+    // }
     
 }

@@ -1,19 +1,26 @@
-using System.Text.Json;
+using Newtonsoft.Json;
+// [JsonConverter(typeof(ManagerConverter))]
 class Manager
 {
-
-    /*private*/ public int additionalScore;
-    /*private*/ public List<Goal> allGoals = new List<Goal>();
+    [JsonProperty]
+    private int totalScore;
+    [JsonProperty]
+    private List<Goal> allGoals = new List<Goal>();
 
     public Manager ()
     {
 
     }
+    public Manager (int totalScore, List<Goal> goalList)
+    {
+        this.totalScore = totalScore;
+        allGoals = goalList;
+    }
     public void DisplayScore()
     {
-        Console.WriteLine($" current score: {additionalScore}");
+        Console.WriteLine($" current score: {totalScore}");
     }
-    /*private*/ public static int AskMenu()//works
+    private static int AskMenu()//works
     {
         Console.WriteLine("Simple Goal : 1");
         Console.WriteLine("Eternal Goal : 2");
@@ -74,7 +81,7 @@ class Manager
     }
     public void CheckGoal(int goalNumber)//works as intended
     {
-       additionalScore += allGoals[goalNumber-1].MarkComplete();
+       totalScore += allGoals[goalNumber-1].MarkComplete();
 
     }
     public int ListOutGoals()//works as intended
@@ -103,36 +110,36 @@ class Manager
             if (answer == "Y")
             {
                 SaveGoalFile();
-                allGoals = ReadJsonFileIntoListOfGoals();
+                ReadJsonFileIn();
             }
             else
             {
-                allGoals = ReadJsonFileIntoListOfGoals();
+                ReadJsonFileIn();
             }            
         } 
         else
         {
-            allGoals = ReadJsonFileIntoListOfGoals();
+            ReadJsonFileIn();
         }
     }
-    /*private*/ public List<Goal> ReadJsonFileIntoListOfGoals()
+    private Manager ReadJsonFileIn()
     {
         Console.WriteLine("What file would you like to load from?");
         string location = Console.ReadLine();
-        additionalScore = int.Parse(File.ReadAllText(location+"-toteScore"));
-        string jsonString = File.ReadAllText(location);
+       // totalScore = int.Parse(File.ReadAllText(location+"-toteScore"));
+        string json = File.ReadAllText(location);
         
-        return JsonSerializer.Deserialize<List<Goal>>(jsonString);
+        return JsonConvert.DeserializeObject<Manager>(json);
         
     }
     public void SaveGoalFile()
     {
         Console.WriteLine("What file would you like to save to?");
         string location = Console.ReadLine();
-        string jsonGoalList = JsonSerializer.Serialize(allGoals);
-        string score = JsonSerializer.Serialize(additionalScore);
-        File.WriteAllText(location+"-toteScore", jsonGoalList); 
-        File.WriteAllText(location, jsonGoalList);  
+        string jsonString = JsonConvert.SerializeObject(this, Formatting.Indented);
+        //string score = JsonSerializer.Serialize(totalScore);
+        //File.WriteAllText(location+"-toteScore", jsonGoalList); 
+        File.WriteAllText(location, jsonString);  
 
     }
 }

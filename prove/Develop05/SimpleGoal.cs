@@ -1,4 +1,5 @@
-using System.Threading.Tasks.Dataflow;
+
+using Newtonsoft.Json;
 
 class SimpleGoal : Goal
 {
@@ -11,9 +12,9 @@ class SimpleGoal : Goal
     
     }
     
-    public override void WriteToFile()
-    {
-        //Json file crap here
-    }
+    // public override void WriteToFile()
+    // {
+    //     //Json file crap here
+    // }
     
 }
