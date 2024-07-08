@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 class EternalGoal : Goal
 {
@@ -10,12 +11,4 @@ class EternalGoal : Goal
     {
     
     }
-
-    
-    // public override void WriteToFile()
-    // {
-    //     TickBox();
-    //     //Json file crap here
-    //     //also call mark complete here
-    // }
 }

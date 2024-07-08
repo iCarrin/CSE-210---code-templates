@@ -1,23 +1,21 @@
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Linq;
+[JsonConverter(typeof(GoalConverter))]
 abstract class Goal
 {
     private bool isChecked = false;
     public string check = " ";
     [JsonProperty]
-    private string goalName;
+    private string goalName = "sauce";
     [JsonProperty]
     protected int pointsGiven;
-    // private string timesCheckedOff;
-
 
     public Goal(string goalName, int pointsGiven)
     {
         this.goalName = goalName;
         this.pointsGiven = pointsGiven;
-        // timesCheckedOff = "";
-        
     }
+
     public Goal()
     {
         Console.WriteLine("What would you like your goal to be called? ");
@@ -26,33 +24,16 @@ abstract class Goal
         pointsGiven = int.Parse(Console.ReadLine());
 
     }
-    // public Goal(string goalName, int pointsGiven, int timesChecked, int timesToCheck)
-    // {
-    //     this.goalName = goalName;
-    //     this.pointsGiven = pointsGiven;
-    //     timesCheckedOff = $" {timesChecked}/{timesToCheck}";
-    // }
-
     public virtual bool TickBox()
     {
         isChecked = !isChecked;
-        
-        
         return isChecked;
     }
     public string GiveBoxValue()
     {
-        check = isChecked ? "X" : " ";
-        //isItTure ? YES : NO;
+        check = isChecked ? "X" : " "; //isItTure ? YES : NO;
         return check;
     }
-    // protected virtual int GivePoints(int pointsGiven)
-    // {
-    //     //Console.WriteLine(pointsGiven);
-    //     //this needs new stuf
-    //     //Its going to immiediatly pull the old score from the file, add this amount, and rewrtie it to the file.
-    //     return pointsGiven;
-    // }
        public virtual int MarkComplete()
     {
         TickBox();
@@ -63,6 +44,6 @@ abstract class Goal
         
         return $"[{GiveBoxValue()}] {goalName} for {pointsGiven} points";
     }
-    //  public abstract void WriteToFile();
+
 
 }

@@ -1,37 +1,21 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 class Menu
 {
     int state = 2000;
-    Manager currentManager = new Manager();
+    
+    public static List<Goal> forTesting = new List<Goal>
+    {
+        new SimpleGoal("be Simple", 300),
+        new EternalGoal("think eternaly", 20),
+        new ChecklistGoal("check something off", 1000, 20, 3)
+    };
+    Manager currentManager = new Manager(200, forTesting);
     string menuList = "Load Goals : 1\nSave Goals : 2\nCheck Off Goals : 3\nCreate Goal : 4\nQuit Program : 0";
     public Menu ()
     {
 
     }
-    // public Manager PreMenu ()
-    // {
-    //     Console.WriteLine("Would you like to load an old goal list or start a new one? (Old/New) ");
-    //     string answer = Console.ReadLine().ToUpper();
-    //     while (answer != "OLD" && answer != "NEW")
-    //     {  
-    //             Console.WriteLine("I'm sorry that was not a valid option "); 
-    //     }
-    //     if (answer.ToUpper() == "OLD")
-    //     {
-    //         Manager currentManager = new Manager();
-    //         currentManager.LoadGoalFile();
-    //         return currentManager;
-    //     }
-    //     else
-    //     {
-    //         Manager currentManager = new Manager();
-    //         return currentManager;
-    //     }
-    // }
-    // private Manager CreateManager()
-    // {
-    //     return new Manager();
-    // }
     public void CallMenu()
     {
         
@@ -39,14 +23,12 @@ class Menu
 
         do 
         {
-            // preMenu();
-            Console.Clear();
             currentManager.DisplayScore();
             Console.WriteLine(menuList);
             Console.WriteLine();
-            int goalAmount = currentManager.ListOutGoals();
+            currentManager.ListOutGoals();
             state = int.Parse(Console.ReadLine());
-
+            
             switch (state)
             {
                 case 1://load goalasdf

@@ -1,5 +1,6 @@
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 class SimpleGoal : Goal
 {
@@ -12,9 +13,5 @@ class SimpleGoal : Goal
     
     }
     
-    // public override void WriteToFile()
-    // {
-    //     //Json file crap here
-    // }
     
 }

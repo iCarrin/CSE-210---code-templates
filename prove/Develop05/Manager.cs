@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
-// [JsonConverter(typeof(ManagerConverter))]
+using Newtonsoft.Json.Linq;
+[JsonConverter(typeof(ManagerConverter))]
 class Manager
 {
     [JsonProperty]
@@ -18,7 +19,7 @@ class Manager
     }
     public void DisplayScore()
     {
-        Console.WriteLine($" current score: {totalScore}");
+        Console.WriteLine($"current score: {totalScore}");
     }
     private static int AskMenu()//works
     {
@@ -81,7 +82,7 @@ class Manager
     }
     public void CheckGoal(int goalNumber)//works as intended
     {
-       totalScore += allGoals[goalNumber-1].MarkComplete();
+       totalScore += allGoals[goalNumber].MarkComplete();
 
     }
     public int ListOutGoals()//works as intended

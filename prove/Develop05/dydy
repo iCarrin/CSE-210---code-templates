@@ -1,0 +1,20 @@
+{
+  "totalScore": 500,
+  "allGoals": [
+    {
+      "Type": "SimpleGoal",
+      "pointsGiven": 300
+    },
+    {
+      "Type": "EternalGoal",
+      "pointsGiven": 20000
+    },
+    {
+      "Type": "ChecklistGoal",
+      "goalName": "check something off",
+      "pointsGiven": 1000,
+      "timesChecked": 3,
+      "timesToCheck": 20
+    }
+  ]
+}

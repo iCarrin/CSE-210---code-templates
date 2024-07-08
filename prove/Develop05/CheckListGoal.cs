@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 class ChecklistGoal : Goal
 {
@@ -14,9 +15,7 @@ class ChecklistGoal : Goal
     private int timesChecked;
     [JsonProperty]
     private string goalName;
-    // private int pointsGiven;
-    // private int pointsGiven;
-    //string timesCheckedOff ;
+   
 
 
     public ChecklistGoal() : base()//This is for when a user creates a new goal.
