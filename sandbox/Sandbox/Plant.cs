@@ -32,8 +32,12 @@ class Plant
     public Dictionary<string, Plant> GetCompanionList(Dictionary<string, Plant> sortedDict)
     {
         Dictioanry<string, Plant> sortedBeneficiaries = beneficiaries
-            .OrderBy(plantRotationFamily => sortedDict.Keys.ToList().IndexOf(plantRotationFamily.Key))
-            .ToDictionary(pair => pair.Key, pair)
+            .OrderBy(pair => sortedDict.Keys.ToList().IndexOf(pair.Key))
+            .ToDictionary(pair => pair.Key, pair => pair.Value);
+        Dictioanry<string, Plant> sortedBenefactors = benefactors
+            .OrderBy(pair => sortedDict.Keys.ToList().IndexOf(pair.Key))
+            .ToDictionary(pair => pair.Key, pair => pair.Value);
+        // from here make a seprate dictioanry to house the sameies and write all three to a list tyype things and return that.
     }
 
     
