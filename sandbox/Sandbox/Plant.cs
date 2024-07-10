@@ -1,6 +1,9 @@
-using Newtonsoft.Json;
+// using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
+
 class Plant
 {
+
     private SoilType soilNeeds { get; }
     private Sunlight sunNeeds { get; }
     private bool perinial { get; }
@@ -9,35 +12,68 @@ class Plant
     private string plantName { get; }
     private string plantRotationFamily { get; }
     private string SowAndPlant  { get; }
-    private Dictionary<string, Plant> beneficiaries;
-    private Dictionary<string, Plant> benefactors;
+    public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
+    // {
+        // { "Asparagus", new Plant("tomato")},
+        // { "Basil", new Plant("tomato")},
+        // { "Beans", new Plant("tomato")},
+        // { "Borage", new Plant("tomato")},
+        // { "Calendula", new Plant("tomato")},
+        // { "Marigold", new Plant("tomato")}
+    // };
+    public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
+    // {
+    //     { "Asparagus", new Plant("tomato")},
+    //     { "Collards", new Plant("tomato")}
+    // };
 
-    public Plant()
+    public Plant(string whatItHelps)
     {
+        this.plantName = whatItHelps;
         //walks a user through adding a plant
     }
-    // public Plant(SoilType soilNeeds, Sunlight sunNeeds, bool perinial, bool frostTolerant, int spacing, string plantRotationFamily, string sowAndPlant, List<string> beneficiaries, List<string> benefactors)
-    // {
-    //     this.soilNeeds = soilNeeds;
-    //     this.sunNeeds = sunNeeds;
-    //     this.perinial = perinial;
-    //     this.frostTolerant = frostTolerant;
-    //     this.spacing = spacing;
-    //     this.plantRotationFamily = plantRotationFamily;
-    //     this.SowAndPlant = sowAndPlant;
-    //     this.beneficiaries = = new List<string>(beneficiaries);
-    //     this.benefactors = = new List<string>(benefactors);
-    //     //this is for Json to rebuild the plant with
-    // }
-    public Dictionary<string, Plant> GetCompanionList(Dictionary<string, Plant> sortedDict)
+    public string DisplayDict (Dictionary<string, Plant> dict)
     {
-        Dictioanry<string, Plant> sortedBeneficiaries = beneficiaries
-            .OrderBy(pair => sortedDict.Keys.ToList().IndexOf(pair.Key))
+        string list = "";
+        foreach (var key in dict.Keys)
+        {
+           list += $"{key} \n";
+        }
+        return list;
+    }
+    
+    public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
+    {
+        var sortedKeys = sortedDict.Keys.ToList();
+
+        var sortedBeneficiaries = beneficiaries
+            .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
             .ToDictionary(pair => pair.Key, pair => pair.Value);
-        Dictioanry<string, Plant> sortedBenefactors = benefactors
-            .OrderBy(pair => sortedDict.Keys.ToList().IndexOf(pair.Key))
+
+        var sortedBenefactors = benefactors
+            .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
             .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+        var intersect = sortedBenefactors.Keys.Intersect(sortedBeneficiaries.Keys).ToList();
+        var mutual = new Dictionary<string, Plant>();
+
+        foreach (string s in intersect)
+            {
+                mutual.Add(s, sortedBenefactors[s]);
+                sortedBenefactors.Remove(s);
+                sortedBeneficiaries.Remove(s);
+            }
+        // public Dictionary<string, Plant> wholeHelpers = new Dictionary<string, Plant> 
+        // (
+        //     mutual.Union(sortedBeneficiaries).Union(sortedBenefactors)
+        // );
+        // string wholeList =  $"Plants that both help this plant and that this plant helps: \n{string.Join(", ", mutual.Keys)}\n" +
+                            // $"Plants that help this plant: \n{string.Join(", ", sortedBenefactors.Keys)}\n" +
+                            // $"Plants that this plant can help: \n{string.Join(", ", sortedBeneficiaries.Keys)}";
+        // return wholeList;
         // from here make a seprate dictioanry to house the sameies and write all three to a list tyype things and return that.
+        
+        Console.WriteLine($"Plants that both help this plant and that this plant helps: \n{DisplayDict(mutual)}\nPlants that help this plant: \n{DisplayDict(sortedBeneficiaries)}\nPlants that this plant can help: \n{DisplayDict(sortedBenefactors)}");
     }
 
     
