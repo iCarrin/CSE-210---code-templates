@@ -1,38 +1,71 @@
-// using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
+// using System.Runtime.CompilerServices;
 
 class Plant
 {
+    //open intergrated terminal dotnet add package Newtonsoft.Json
+        // it just works
+        //but you can write a serilizer and deseriliser converters 
+        //a seperate constructor can call it;s own constructor from its own class
 
-    private SoilType soilNeeds { get; }
-    private Sunlight sunNeeds { get; }
     private bool perinial { get; }
     private bool frostTolerant { get; }
     private int spacing { get; }
     private string plantName { get; }
     private string plantRotationFamily { get; }
     private string SowAndPlant  { get; }
-    public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
-    // {
-        // { "Asparagus", new Plant("tomato")},
-        // { "Basil", new Plant("tomato")},
-        // { "Beans", new Plant("tomato")},
-        // { "Borage", new Plant("tomato")},
-        // { "Calendula", new Plant("tomato")},
-        // { "Marigold", new Plant("tomato")}
-    // };
-    public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
-    // {
-    //     { "Asparagus", new Plant("tomato")},
-    //     { "Collards", new Plant("tomato")}
-    // };
-
-    public Plant(string whatItHelps)
+    private string soilType;
+    private string sunLevel;
+    private string[] rotationFamilies = 
     {
-        this.plantName = whatItHelps;
-        //walks a user through adding a plant
+        "Apiaceae",
+        "Asteraceae",
+        "Brassicaceae",
+        "Chenopodiaceae",
+        "Cucurbitaceae",
+        "Ericaceae",
+        "Fabaceae",
+        "Lamiaceae",
+        "Liliaceae",
+        "Poaceae",
+        "Polygonaceae",
+        "Rosaceae",
+        "Solanaceae"
+    };
+    private string[] soilTypes = 
+    {
+        "Clay",
+        "Sandy",
+        "Silty",
+        "Peaty",
+        "Chalky", 
+        "Loamy"
+    };
+    private string[] sunLevels = 
+    {
+        "FullSun",
+        "Partial",
+        "Shaded"
+    };
+
+    public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
+    public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
+    private Picker<string> stringPicker = new Picker<string>();
+
+    public Plant()
+    {
+        Console.WriteLine("Name of Plant: ");
+        plantName = Console.ReadLine();
+        Console.WriteLine("Crop Rotation Family: ");
+        plantRotationFamily = Console.ReadLine();
+        Console.WriteLine("Type of soil it needs: ");
+        soilType = stringPicker.GetUserChoice(soilTypes);
+        Console.WriteLine("Sun amount needed");
+        sunLevel = stringPicker.GetUserChoice(sunLevels);
+        Console.WriteLine("Plant rotation family: ");
+        sunLevel = stringPicker.GetUserChoice(sunLevels);  
     }
-    public string DisplayDict (Dictionary<string, Plant> dict)
+    public string DisplayDict (Dictionary<string, Plant> dict)//kind of a temporary things to test the dictionary sorter
     {
         string list = "";
         foreach (var key in dict.Keys)
