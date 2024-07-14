@@ -8,62 +8,33 @@ class Plant
         //but you can write a serilizer and deseriliser converters 
         //a seperate constructor can call it;s own constructor from its own class
 
-    private bool perinial { get; }
-    private bool frostTolerant { get; }
-    private int spacing { get; }
-    private string plantName { get; }
-    private string plantRotationFamily { get; }
-    private string SowAndPlant  { get; }
-    private string soilType;
-    private string sunLevel;
-    private string[] rotationFamilies = 
-    {
-        "Apiaceae",
-        "Asteraceae",
-        "Brassicaceae",
-        "Chenopodiaceae",
-        "Cucurbitaceae",
-        "Ericaceae",
-        "Fabaceae",
-        "Lamiaceae",
-        "Liliaceae",
-        "Poaceae",
-        "Polygonaceae",
-        "Rosaceae",
-        "Solanaceae"
-    };
-    private string[] soilTypes = 
-    {
-        "Clay",
-        "Sandy",
-        "Silty",
-        "Peaty",
-        "Chalky", 
-        "Loamy"
-    };
-    private string[] sunLevels = 
-    {
-        "FullSun",
-        "Partial",
-        "Shaded"
-    };
+    private bool perinial { get; }//
+    private bool frostTolerant { get; }//
+    private int spacing { get; }//
+    private string plantName { get; }//
+    private string plantRotationFamily { get; }//
+    private string sowAndPlant  { get; }//
+    private string soilType;//
+    private string sunLevel;//
+    // public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
+    // public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
+    private List<string> beneficiaries;
+    private List<string> benefactors;
+    private List<string> mutual;
 
-    public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
-    public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
-    private Picker<string> stringPicker = new Picker<string>();
-
-    public Plant()
+    public Plant(string name, int spacing, string sunLevel, string soilType, bool perinial, bool frostTolerant, string plantRotationFamily, string sowAndPlant, List<string> beneficiaries, List<string> benefactors, List<string> mutual)
     {
-        Console.WriteLine("Name of Plant: ");
-        plantName = Console.ReadLine();
-        Console.WriteLine("Crop Rotation Family: ");
-        plantRotationFamily = Console.ReadLine();
-        Console.WriteLine("Type of soil it needs: ");
-        soilType = stringPicker.GetUserChoice(soilTypes);
-        Console.WriteLine("Sun amount needed");
-        sunLevel = stringPicker.GetUserChoice(sunLevels);
-        Console.WriteLine("Plant rotation family: ");
-        sunLevel = stringPicker.GetUserChoice(sunLevels);  
+        plantName = name;
+        this.spacing = spacing;
+        this.sunLevel = sunLevel;
+        this.soilType = soilType;
+        this.perinial = perinial;
+        this.frostTolerant = frostTolerant;
+        this.plantRotationFamily = plantRotationFamily;
+        this.sowAndPlant = sowAndPlant;
+        this.beneficiaries = beneficiaries;
+        this.benefactors = benefactors;
+        this.mutual = mutual;
     }
     public string DisplayDict (Dictionary<string, Plant> dict)//kind of a temporary things to test the dictionary sorter
     {
@@ -74,7 +45,6 @@ class Plant
         }
         return list;
     }
-    
     public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
     {
         var sortedKeys = sortedDict.Keys.ToList();
@@ -90,12 +60,34 @@ class Plant
         var intersect = sortedBenefactors.Keys.Intersect(sortedBeneficiaries.Keys).ToList();
         var mutual = new Dictionary<string, Plant>();
 
-        foreach (string s in intersect)
-            {
-                mutual.Add(s, sortedBenefactors[s]);
-                sortedBenefactors.Remove(s);
-                sortedBeneficiaries.Remove(s);
-            }
+        // foreach (string s in intersect)
+        //     {
+        //         mutual.Add(s, sortedBenefactors[s]);
+        //         sortedBenefactors.Remove(s);
+        //         sortedBeneficiaries.Remove(s);
+        //     }
+    
+    // public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
+    // {
+    //     var sortedKeys = sortedDict.Keys.ToList();
+
+    //     var sortedBeneficiaries = beneficiaries
+    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
+    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+    //     var sortedBenefactors = benefactors
+    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
+    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+    //     var intersect = sortedBenefactors.Keys.Intersect(sortedBeneficiaries.Keys).ToList();
+    //     var mutual = new Dictionary<string, Plant>();
+
+    //     foreach (string s in intersect)
+    //         {
+    //             mutual.Add(s, sortedBenefactors[s]);
+    //             sortedBenefactors.Remove(s);
+    //             sortedBeneficiaries.Remove(s);
+    //         }
         // public Dictionary<string, Plant> wholeHelpers = new Dictionary<string, Plant> 
         // (
         //     mutual.Union(sortedBeneficiaries).Union(sortedBenefactors)

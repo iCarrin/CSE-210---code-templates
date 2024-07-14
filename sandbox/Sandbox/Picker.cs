@@ -20,4 +20,42 @@ public class Picker<T>
             Console.WriteLine("Invalid choice. Please try again.");
         }
     }
+
+    public string GetUserWordChoice(IEnumerable<string> items)
+    {
+        // IEnumerable<T> items = listToPickFrom;
+
+        while (true)
+        {
+            Console.WriteLine("Choose an option:");
+            var itemList = items.ToList();
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                itemList[i].ToUpper();
+                Console.WriteLine($"{itemList[i]}");//write out the list of all the words capitalized and not numberd
+            }
+            // get and capitalize the answer
+            string choice = Console.ReadLine().ToUpper();
+            //if that word is in the list return that word
+            if (itemList.Contains(choice))
+            {
+                return choice;//return that choice to the computer 
+            }
+            Console.WriteLine("Invalid choice. Please try again.");
+        }
+    }
+    public bool GetUserBoolChoice(string Y, string N)
+    {
+        Console.WriteLine($"{Y}/{N}");
+
+        while (true)
+        {
+            var choice = Console.ReadLine().ToUpper();
+            if (choice.GetType().Equals(typeof(bool)))
+            {
+                return Y.ToUpper() == choice;//return true if it's a Yes and false if it's a No 
+            }
+            Console.WriteLine("Invalid choice. Please try again.");
+        }
+    }
 }
