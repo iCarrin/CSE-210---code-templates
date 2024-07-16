@@ -57,7 +57,7 @@ public class Picker<T>
             //if that word is in the list return that word
             if(int.TryParse(choice, out int result) && range.Contains(result))
             {
-                return result
+                return result;
             }
             Console.WriteLine("Invalid choice. Please try again.");
         }

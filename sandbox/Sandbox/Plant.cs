@@ -10,7 +10,7 @@ class Plant
     [JsonProperty]
     private string plantName { get; } 
     [JsonProperty]
-    private (int, char) hardinessZone { get;}
+    private string hardinessZone { get;}
     [JsonProperty]
     private int spacing { get; } 
     [JsonProperty]
@@ -34,7 +34,7 @@ class Plant
     [JsonProperty]
     private List<string> mutual;
 
-    public Plant(string name, (int, char) hardinessZone, int spacing, string sunLevel, string soilType, bool perinial, bool frostTolerant, string plantRotationFamily, string sowAndPlant, List<string> beneficiaries, List<string> benefactors, List<string> mutual)
+    public Plant(string name, string hardinessZone, int spacing, string sunLevel, string soilType, bool perinial, bool frostTolerant, string plantRotationFamily, string sowAndPlant, List<string> beneficiaries, List<string> benefactors, List<string> mutual)
     {
         plantName = name;
         this.hardinessZone = hardinessZone;
@@ -63,22 +63,22 @@ class Plant
         if (mutual.Count != 0) 
         {
             var mutual = SortSmallList(referanceList, mutual);
-            Console.WriteLine($"Mutualy beneficial plants: {string.Join(", ", mutual)}")
+            Console.WriteLine($"Mutualy beneficial plants: {string.Join(", ", mutual)}");
             
             
         };
         if (beneficiaries.Count != 0) 
         {
-            var beneficiaries = SortSmallList(referanceList, beneficiaries)
-            Console.WriteLine($"Plants that help {plantName}: ")
+            var beneficiaries = SortSmallList(referanceList, beneficiaries);
+            Console.WriteLine($"Plants that help {plantName}: ");
             
             for (int i = 0; i < beneficiaries.Count; i+5)
             {
-                Console.Write(beneficiaries[i]" ");
-                Console.Write(beneficiaries[i+1]" ");
-                Console.Write(beneficiaries[i+2]" ");
-                Console.Write(beneficiaries[i+3]" ");
-                Console.Write(beneficiaries[i+4]" ");
+                Console.Write($"{beneficiaries[i]} ");
+                Console.Write($"{beneficiaries[i+1]} ");
+                Console.Write($"{beneficiaries[i+2]} ");
+                Console.Write($"{beneficiaries[i+3]} ");
+                Console.Write($"{beneficiaries[i+4]} ");
                 Console.WriteLine();  
             }
 
@@ -86,14 +86,14 @@ class Plant
         };
         if (benefactors.Count != 0) 
         {
-            Console.WriteLine($"Plants that {plantName} helps \n{SortSmallList(referanceList, mutual)}");
+            Console.WriteLine($"Plants that {plantName} helps \n{SortSmallList(referanceList, benefactors)}");
             for (int i = 0; i < benefactors.Count; i+5)
             {
-                Console.Write(benefactors[i]" ");
-                Console.Write(benefactors[i+1]" ");
-                Console.Write(benefactors[i+2]" ");
-                Console.Write(benefactors[i+3]" ");
-                Console.Write(benefactors[i+4]" ");
+                Console.Write($"{benefactors[i]} ");
+                Console.Write($"{benefactors[i+1]} ");
+                Console.Write($"{benefactors[i+2]} ");
+                Console.Write($"{benefactors[i+3]} ");
+                Console.Write($"{benefactors[i+4]} ");
                 Console.WriteLine();  
             }
         };
@@ -113,7 +113,7 @@ class Plant
     }
 
    
-        public void PrintPlantInfo()
+    public void PrintPlantInfo()
     {
         Console.WriteLine($"Plant Name: {plantName}");
         Console.WriteLine($"Hardiness Zone: {hardinessZone.Item1} - {hardinessZone.Item2}");
@@ -155,7 +155,7 @@ class Plant
         }
         else { Console.WriteLine("  None"); }
     }
-    {
+    
     // public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
     // {
     //     var sortedKeys = sortedDict.Keys.ToList();
@@ -190,7 +190,7 @@ class Plant
 
     //     foreach (string s in intersect)
     //         {
-    //             mutual.Add(s, sortedBenefactors[s]);
+    //             mutual.Add(s, sorted$"{benefactors[s]);
     //             sortedBenefactors.Remove(s);
     //             sortedBeneficiaries.Remove(s);
     //         }
@@ -206,7 +206,6 @@ class Plant
         
     //     Console.WriteLine($"Plants that both help this plant and that this plant helps: \n{DisplayDict(mutual)}\nPlants that help this plant: \n{DisplayDict(sortedBeneficiaries)}\nPlants that this plant can help: \n{DisplayDict(sortedBenefactors)}");
     // }
-    }
     
     
 }

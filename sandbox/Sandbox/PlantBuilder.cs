@@ -33,10 +33,34 @@ class PlantBuilder
         "Partial",
         "Shaded"
     };
-    private string[] plants = 
+    private string[] hardinessList = 
     {
-        "Flower",
-        "Harvestable"
+        "1a", 
+        "1b", 
+        "2a", 
+        "2b", 
+        "3a",
+        "3b",
+        "4a",
+        "4b",
+        "5a",
+        "5b",
+        "6a",
+        "6b",
+        "7a",
+        "7b",
+        "8a", 
+        "8b",
+        "9a",
+        "9b",
+        "10a",
+        "10b",
+        "11a",
+        "11b",
+        "12a",
+        "12b",
+        "13a",
+        "13b"
     };
 
     private Picker<string> stringPicker = new Picker<string>();
@@ -56,7 +80,7 @@ class PlantBuilder
         int tupleInt = intPicker.GetUserNumberChoice(1, 13);
         Console.WriteLine("Plant's hardiness zone number: ");
         char tupleChar = stringPicker.GetUserBoolChoice('a','b') ? 'a' : 'b';
-        var hardinessZone = {tupleInt, tupleChar}
+        string hardinessZone = stringPicker.GetUserChoice(hardinessList);
         Console.WriteLine("Spacing: "); // add more here like width and depth, probably more questions
         int spacing = int.Parse(Console.ReadLine());
         Console.WriteLine("Sun amount needed");
@@ -77,13 +101,13 @@ class PlantBuilder
         switch (plantType)
         {   
             case "Harvestable":
-                Harvestable newPlant = new Harvestable(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                Harvestable newPlant = new Harvestable(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Flowering":
-                Flower newPlant = new Flower(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                Flower newPlant = new Flower(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Plant":
-                Plant newPlant = new Plant(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                Plant newPlant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             default:
                 throw new InvalidOperationException($"Unknown goal type: {typeName}");  

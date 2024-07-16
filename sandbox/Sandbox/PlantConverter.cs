@@ -35,7 +35,7 @@ public class PlantConverter : JsonConverter
         Plant plant;
 
         string plantName = jo["plantName"].ToString();
-        (int, char) hardinessZone = jo["hardinessZone"].ToString();
+        string hardinessZone = jo["hardinessZone"].ToString();
         string sunLevel = jo["sunLevel"].ToString();
         string soilType = jo["soilType"].ToString();
         string plantRotationFamily = jo["plantRotationFamily"].ToString();
@@ -50,15 +50,15 @@ public class PlantConverter : JsonConverter
         switch(typeName) 
         {
             case "Plant":
-                plant = new Plant(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, beneficiaries, benefactors, mutual);
+                plant = new Plant(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Flowering":
                 string floweringTime = jo["floweringTime"].ToString() ?? "";
-                plant = new Flowering(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, floweringTime, beneficiaries, benefactors, mutual);
+                plant = new Flowering(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, floweringTime, beneficiaries, benefactors, mutual);
                 break;
             case "Harvestable":
                 string harvestingTime = jo["harvestingTime"].ToString() ?? "";
-                plant = new Harvestable(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, harvestingTime, beneficiaries, benefactors, mutual);
+                plant = new Harvestable(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, harvestingTime, beneficiaries, benefactors, mutual);
                 break;
             default:
                 throw new InvalidOperationException($"Unknown plant type: {typeName}");
