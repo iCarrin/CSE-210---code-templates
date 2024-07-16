@@ -62,23 +62,28 @@ class Plant
     {
         if (mutual.Count != 0) 
         {
-            var mutual = SortSmallList(referanceList, mutual);
+            var mutualSort = SortSmallList(referanceList, mutual);
             Console.WriteLine($"Mutualy beneficial plants: {string.Join(", ", mutual)}");
             
             
         };
         if (beneficiaries.Count != 0) 
         {
-            var beneficiaries = SortSmallList(referanceList, beneficiaries);
+            var beneficiariesSort = SortSmallList(referanceList, beneficiaries);
             Console.WriteLine($"Plants that help {plantName}: ");
             
-            for (int i = 0; i < beneficiaries.Count; i+5)
+            for (int i = 0; i < beneficiaries.Count;)
             {
                 Console.Write($"{beneficiaries[i]} ");
+                i++;
                 Console.Write($"{beneficiaries[i+1]} ");
+                i++;
                 Console.Write($"{beneficiaries[i+2]} ");
+                i++;
                 Console.Write($"{beneficiaries[i+3]} ");
+                i++;
                 Console.Write($"{beneficiaries[i+4]} ");
+                i++;
                 Console.WriteLine();  
             }
 
@@ -86,14 +91,20 @@ class Plant
         };
         if (benefactors.Count != 0) 
         {
+            var benefactorsSort = SortSmallList(referanceList, beneficiaries);
             Console.WriteLine($"Plants that {plantName} helps \n{SortSmallList(referanceList, benefactors)}");
-            for (int i = 0; i < benefactors.Count; i+5)
+            for (int i = 0; i < benefactors.Count;)
             {
                 Console.Write($"{benefactors[i]} ");
+                i++;
                 Console.Write($"{benefactors[i+1]} ");
+                i++;
                 Console.Write($"{benefactors[i+2]} ");
+                i++;
                 Console.Write($"{benefactors[i+3]} ");
+                i++;
                 Console.Write($"{benefactors[i+4]} ");
+                i++;
                 Console.WriteLine();  
             }
         };
@@ -116,8 +127,8 @@ class Plant
     public void PrintPlantInfo()
     {
         Console.WriteLine($"Plant Name: {plantName}");
-        Console.WriteLine($"Hardiness Zone: {hardinessZone.Item1} - {hardinessZone.Item2}");
-        Console.WriteLine($"Spacing: {spacing} inches");
+        Console.WriteLine($"Hardiness Zone: {hardinessZone}");
+        Console.WriteLine($"Spacing: {spacing} SQ inches");
         Console.WriteLine($"Sun Level: {sunLevel}");
         Console.WriteLine($"Soil Type: {soilType}");
         Console.WriteLine($"Perennial: {(perinial ? "Yes" : "No")}");

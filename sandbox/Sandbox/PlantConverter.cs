@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 public class PlantConverter : JsonConverter
 {
@@ -50,18 +52,19 @@ public class PlantConverter : JsonConverter
         switch(typeName) 
         {
             case "Plant":
-                plant = new Plant(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, beneficiaries, benefactors, mutual);
+                plant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Flowering":
                 string floweringTime = jo["floweringTime"].ToString() ?? "";
-                plant = new Flowering(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, floweringTime, beneficiaries, benefactors, mutual);
+                plant = new Flowering(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, floweringTime, beneficiaries, benefactors, mutual);
                 break;
             case "Harvestable":
                 string harvestingTime = jo["harvestingTime"].ToString() ?? "";
-                plant = new Harvestable(plantName, string hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, harvestingTime, beneficiaries, benefactors, mutual);
+                plant = new Harvestable(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily,sowAndPlant, harvestingTime, beneficiaries, benefactors, mutual);
                 break;
             default:
                 throw new InvalidOperationException($"Unknown plant type: {typeName}");
         }
         return plant;
+    }
 }

@@ -77,9 +77,6 @@ class PlantBuilder
         Console.WriteLine("Name of plant: ");
         string plantName = Console.ReadLine();
         Console.WriteLine("Plant's hardiness zone number: ");
-        int tupleInt = intPicker.GetUserNumberChoice(1, 13);
-        Console.WriteLine("Plant's hardiness zone number: ");
-        char tupleChar = stringPicker.GetUserBoolChoice('a','b') ? 'a' : 'b';
         string hardinessZone = stringPicker.GetUserChoice(hardinessList);
         Console.WriteLine("Spacing: "); // add more here like width and depth, probably more questions
         int spacing = int.Parse(Console.ReadLine());
@@ -98,19 +95,20 @@ class PlantBuilder
         List<string> beneficiaries = BuildList(true);
         List<string> benefactors = BuildList(false);
         List<string> mutual = MutualList(ref beneficiaries, ref benefactors);
+        Plant newPlant;
         switch (plantType)
         {   
             case "Harvestable":
-                Harvestable newPlant = new Harvestable(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                newPlant = new Harvestable(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Flowering":
-                Flower newPlant = new Flower(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                newPlant = new Flowering(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             case "Plant":
-                Plant newPlant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                newPlant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
                 break;
             default:
-                throw new InvalidOperationException($"Unknown goal type: {typeName}");  
+                throw new InvalidOperationException($"Unknown goal type: {plantType}");  
         }
          return newPlant;
     }
@@ -154,4 +152,4 @@ class PlantBuilder
         return intersect;
     }
     
-    }
+}

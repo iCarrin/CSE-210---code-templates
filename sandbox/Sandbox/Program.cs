@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Dictioanry<string, Plant> testPlantList = new Dictioanry<string, Plant>();
+        Dictionary<string, Plant> testPlantList = new Dictionary<string, Plant>();
         PlantBuilder test = new PlantBuilder();
         // Dictionary<string, Plant> alreadySorted = new Dictionary<string, Plant>
         // {
@@ -45,11 +45,14 @@ class Program
         // Implementation
     }
 
-    test.BuildPlant();
-    testPlantList.Add(test.plantName, test);
-    testPlantList[0].PrintPlantInfo();
+    Plant name = test.BuildPlant();
+    testPlantList.Add("tomatoe", name);
+    testPlantList["tomatoe"].PrintPlantInfo();
 
-
+    //plants grow in a range of tempratures. I need to acount for that
+    // soil type isn't hodling up. need well drained and stuff like that
+    // need soil ph
+    // watering needs
 
 
     }
