@@ -33,8 +33,14 @@ class PlantBuilder
         "Partial",
         "Shaded"
     };
+    private string[] plants = 
+    {
+        "Flower",
+        "Harvestable"
+    };
 
     private Picker<string> stringPicker = new Picker<string>();
+    private Picker<int> intPicker = new Picker<int>();
      public PlantBuilder()
     {
         
@@ -42,8 +48,15 @@ class PlantBuilder
 
     public Plant BuildPlant()
     {
-        Console.WriteLine("Name of Plant: ");
+        Console.WriteLine("Flowing or Harvestable: ");
+        string plantType = stringPicker.GetUserBoolChoice("Flowering", "Harvestable") ? "Flowering" : "Harvestable";
+        Console.WriteLine("Name of plant: ");
         string plantName = Console.ReadLine();
+        Console.WriteLine("Plant's hardiness zone number: ");
+        int tupleInt = intPicker.GetUserNumberChoice(1, 13);
+        Console.WriteLine("Plant's hardiness zone number: ");
+        char tupleChar = stringPicker.GetUserBoolChoice('a','b') ? 'a' : 'b';
+        var hardinessZone = {tupleInt, tupleChar}
         Console.WriteLine("Spacing: "); // add more here like width and depth, probably more questions
         int spacing = int.Parse(Console.ReadLine());
         Console.WriteLine("Sun amount needed");
@@ -52,17 +65,30 @@ class PlantBuilder
         string soilType = stringPicker.GetUserChoice(soilTypes);
         Console.WriteLine("Perinial?: ");
         bool perinial = stringPicker.GetUserBoolChoice("Y", "N");
-        Console.WriteLine("Frost Tolerant?: ");
+        Console.WriteLine("Frost tolerant?: ");
         bool frostTolerant = stringPicker.GetUserBoolChoice("Y", "N");
-        Console.WriteLine("Crop Rotation Family: ");
+        Console.WriteLine("Crop rotation family: ");
         string plantRotationFamily = stringPicker.GetUserChoice(rotationFamilies);
-        Console.WriteLine("Type out it's Planting and Growth needs ");
+        Console.WriteLine("Type out it's planting and growth needs ");
         string sowAndPlant = Console.ReadLine();
         List<string> beneficiaries = BuildList(true);
-        List<string> benefactors = BuildList(true);
+        List<string> benefactors = BuildList(false);
         List<string> mutual = MutualList(ref beneficiaries, ref benefactors);
-        Plant name = new Plant(plantName, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
-        return name;
+        switch (plantType)
+        {   
+            case "Harvestable":
+                Harvestable newPlant = new Harvestable(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                break;
+            case "Flowering":
+                Flower newPlant = new Flower(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                break;
+            case "Plant":
+                Plant newPlant = new Plant(plantName, (int, char) hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                break;
+            default:
+                throw new InvalidOperationException($"Unknown goal type: {typeName}");  
+        }
+         return newPlant;
     }
     // private void BuildDictioanry(bool b)
     // {   

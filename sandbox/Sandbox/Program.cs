@@ -4,6 +4,8 @@ class Program
 {
     static void Main(string[] args)
     {
+        Dictioanry<string, Plant> testPlantList = new Dictioanry<string, Plant>();
+        PlantBuilder test = new PlantBuilder();
         // Dictionary<string, Plant> alreadySorted = new Dictionary<string, Plant>
         // {
         //     { "Calendula", new Plant("tomato")},
@@ -42,6 +44,12 @@ class Program
     {
         // Implementation
     }
+
+    test.BuildPlant();
+    testPlantList.Add(test.plantName, test);
+    testPlantList[0].PrintPlantInfo();
+
+
 
 
     }

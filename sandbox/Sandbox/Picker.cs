@@ -31,7 +31,7 @@ public class Picker<T>
             var itemList = items.ToList();
             for (int i = 0; i < itemList.Count; i++)
             {
-                itemList[i].ToUpper();
+                itemList[i] = itemList[i].ToUpper();
                 Console.WriteLine($"{itemList[i]}");//write out the list of all the words capitalized and not numberd
             }
             // get and capitalize the answer
@@ -44,6 +44,24 @@ public class Picker<T>
             Console.WriteLine("Invalid choice. Please try again.");
         }
     }
+    public int GetUserNumberChoice(int first, int count)
+    {
+        // IEnumerable<T> items = listToPickFrom;
+
+        while (true)
+        {
+            Console.WriteLine($"Between {first} and {first + count}:");
+            IEnumerable<int> range = Enumerable.Range(first, count);
+            
+            string choice = Console.ReadLine();
+            //if that word is in the list return that word
+            if(int.TryParse(choice, out int result) && range.Contains(result))
+            {
+                return result
+            }
+            Console.WriteLine("Invalid choice. Please try again.");
+        }
+    }
     public bool GetUserBoolChoice(string Y, string N)
     {
         Console.WriteLine($"{Y}/{N}");
@@ -51,9 +69,13 @@ public class Picker<T>
         while (true)
         {
             var choice = Console.ReadLine().ToUpper();
-            if (choice.GetType().Equals(typeof(bool)))
+            if (choice == Y.ToUpper())
             {
-                return Y.ToUpper() == choice;//return true if it's a Yes and false if it's a No 
+                return true;//return true if it's a Yes and false if it's a No 
+            }
+            else if (choice == N.ToUpper())
+            {
+                return false;//return true if it's a Yes and false if it's a No 
             }
             Console.WriteLine("Invalid choice. Please try again.");
         }
