@@ -1,32 +1,35 @@
 using Newtonsoft.Json;
 // using System.Runtime.CompilerServices;
-
-class Plant
+[JsonConverter(typeof(PlantConverter))]
+abstract class Plant
 {
     //open intergrated terminal dotnet add package Newtonsoft.Json
         // it just works
         //but you can write a serilizer and deseriliser converters 
         //a seperate constructor can call it;s own constructor from its own class
     [JsonProperty]
-    private string plantName { get; } 
+    private string plantName; //{ get; } 
+    // [JsonProperty]
+    // private string hardinessZone; //{ get;}
+    // public string HardinessZone
+    // {get;}
     [JsonProperty]
-    private string hardinessZone { get;}
-    [JsonProperty]
-    private int spacing { get; } 
-    [JsonProperty]
-    private string sunLevel; 
-    [JsonProperty]
-    private string soilType;     
-    [JsonProperty]
-    private bool perinial { get; } 
-    [JsonProperty]
-    private bool frostTolerant { get; } 
-    [JsonProperty]
-    private string plantRotationFamily { get; } 
-    [JsonProperty]
-    private string sowAndPlant  { get; }
-    // public Dictionary<string, Plant> beneficiaries = new Dictionary<string, Plant>();
-    // public Dictionary<string, Plant> benefactors = new Dictionary<string, Plant>();
+    private int spacing; //{ get; } 
+    public int Spacing
+    {get;}
+    // [JsonProperty]
+    // private string sunLevel; //{ get; }
+    // [JsonProperty]
+    // private string soilType; //{ get; }  
+    // [JsonProperty]
+    // private bool perinial; //{ get; } 
+    // [JsonProperty]
+    // private bool frostTolerant; //{ get; } 
+    // [JsonProperty]
+    // private string plantRotationFamily; //{ get; } 
+    // [JsonProperty]
+    // private string sowAndPlant ; //{ get; }
+
     [JsonProperty]
     private List<string> beneficiaries;
     [JsonProperty]
@@ -34,20 +37,24 @@ class Plant
     [JsonProperty]
     private List<string> mutual;
 
-    public Plant(string name, string hardinessZone, int spacing, string sunLevel, string soilType, bool perinial, bool frostTolerant, string plantRotationFamily, string sowAndPlant, List<string> beneficiaries, List<string> benefactors, List<string> mutual)
+    public Plant()
+    {
+
+    }
+    public Plant(string name, /*string hardinessZone,*/ int spacing, /*tring sunLevel, string soilType, bool perinial, bool frostTolerant, string plantRotationFamily, string sowAndPlant, */List<string> beneficiaries, List<string> benefactors, List<string> mutual)
     {
         plantName = name;
-        this.hardinessZone = hardinessZone;
+        // this.hardinessZone = hardinessZone;
         this.spacing = spacing;
-        this.sunLevel = sunLevel;
-        this.soilType = soilType;
-        this.perinial = perinial;
-        this.frostTolerant = frostTolerant;
-        this.plantRotationFamily = plantRotationFamily;
-        this.sowAndPlant = sowAndPlant;
+        // this.sunLevel = sunLevel;
+        // this.soilType = soilType;
+        // this.perinial = perinial;
+        // this.frostTolerant = frostTolerant;
+        // this.plantRotationFamily = plantRotationFamily;
+        // this.sowAndPlant = sowAndPlant;
         this.beneficiaries = beneficiaries;
         this.benefactors = benefactors;
-        this.mutual = mutual;
+        // this.mutual = mutual;
     }
     // public string DisplayDict (Dictionary<string, Plant> dict)//kind of a temporary things to test the dictionary sorter
     // {
@@ -58,15 +65,20 @@ class Plant
     //     }
     //     return list;
     // }
+    
+    public int GetSpacing()
+    {
+        return spacing;
+    }
     public void PrintAllLists(List<string> referanceList)
     {
-        if (mutual.Count != 0) 
-        {
-            var mutualSort = SortSmallList(referanceList, mutual);
-            Console.WriteLine($"Mutualy beneficial plants: {string.Join(", ", mutual)}");
+        // if (mutual.Count != 0) 
+        // {
+        //     var mutualSort = SortSmallList(referanceList, mutual);
+        //     Console.WriteLine($"Mutualy beneficial plants: {string.Join(", ", mutual)}");
             
             
-        };
+        // };
         if (beneficiaries.Count != 0) 
         {
             var beneficiariesSort = SortSmallList(referanceList, beneficiaries);
@@ -119,7 +131,7 @@ class Plant
 
     public override string ToString()
     {
-        return $"{plantName}: {plantRotationFamily}: {hardinessZone}";
+        return plantName;
         
     }
 
@@ -127,14 +139,14 @@ class Plant
     public void PrintPlantInfo()
     {
         Console.WriteLine($"Plant Name: {plantName}");
-        Console.WriteLine($"Hardiness Zone: {hardinessZone}");
+        // Console.WriteLine($"Hardiness Zone: {hardinessZone}");
         Console.WriteLine($"Spacing: {spacing} SQ inches");
-        Console.WriteLine($"Sun Level: {sunLevel}");
-        Console.WriteLine($"Soil Type: {soilType}");
-        Console.WriteLine($"Perennial: {(perinial ? "Yes" : "No")}");
-        Console.WriteLine($"Frost Tolerant: {(frostTolerant ? "Yes" : "No")}");
-        Console.WriteLine($"Plant Rotation Family: {plantRotationFamily}");
-        Console.WriteLine($"Sow and Plant: {sowAndPlant}");
+        // Console.WriteLine($"Sun Level: {sunLevel}");
+        // Console.WriteLine($"Soil Type: {soilType}");
+        // Console.WriteLine($"Perennial: {(perinial ? "Yes" : "No")}");
+        // Console.WriteLine($"Frost Tolerant: {(frostTolerant ? "Yes" : "No")}");
+        // Console.WriteLine($"Plant Rotation Family: {plantRotationFamily}");
+        // Console.WriteLine($"Sow and Plant: {sowAndPlant}");
 
         Console.WriteLine("Beneficiaries:");
         if (beneficiaries != null && beneficiaries.Any())
@@ -156,67 +168,15 @@ class Plant
         }
         else { Console.WriteLine("  None"); }
 
-        Console.WriteLine("Mutual:");
-        if (mutual != null && mutual.Any())
-        {
-            foreach (var mutualPlant in mutual)
-            {
-                Console.WriteLine($"  - {mutualPlant}");
-            }
-        }
-        else { Console.WriteLine("  None"); }
-    }
-    
-    // public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
-    // {
-    //     var sortedKeys = sortedDict.Keys.ToList();
-
-    //     var sortedBeneficiaries = beneficiaries
-    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
-    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-    //     var sortedBenefactors = benefactors
-    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
-    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-    //     var intersect = sortedBenefactors.Keys.Intersect(sortedBeneficiaries.Keys).ToList();
-    //     var mutual = new Dictionary<string, Plant>();
-
-
-    
-    // public /*Dictionary<string, Plant> string*/ void GetCompanionList(Dictionary<string, Plant> sortedDict)
-    // {
-    //     var sortedKeys = sortedDict.Keys.ToList();
-
-    //     var sortedBeneficiaries = beneficiaries
-    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
-    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-    //     var sortedBenefactors = benefactors
-    //         .OrderBy(pair => sortedKeys.IndexOf(pair.Key))
-    //         .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-    //     var intersect = sortedBenefactors.Keys.Intersect(sortedBeneficiaries.Keys).ToList();
-    //     var mutual = new Dictionary<string, Plant>();
-
-    //     foreach (string s in intersect)
+    //     Console.WriteLine("Mutual:");
+    //     if (mutual != null && mutual.Any())
+    //     {
+    //         foreach (var mutualPlant in mutual)
     //         {
-    //             mutual.Add(s, sorted$"{benefactors[s]);
-    //             sortedBenefactors.Remove(s);
-    //             sortedBeneficiaries.Remove(s);
+    //             Console.WriteLine($"  - {mutualPlant}");
     //         }
-    //     public Dictionary<string, Plant> wholeHelpers = new Dictionary<string, Plant> 
-    //     (
-    //         mutual.Union(sortedBeneficiaries).Union(sortedBenefactors)
-    //     );
-        // string wholeList =  $"Plants that both help this plant and that this plant helps: \n{string.Join(", ", mutual.Keys)}\n" +
-                            // $"Plants that help this plant: \n{string.Join(", ", sortedBenefactors.Keys)}\n" +
-                            // $"Plants that this plant can help: \n{string.Join(", ", sortedBeneficiaries.Keys)}";
-        // return wholeList;
-        // from here make a seprate dictioanry to house the sameies and write all three to a list tyype things and return that.
-        
-    //     Console.WriteLine($"Plants that both help this plant and that this plant helps: \n{DisplayDict(mutual)}\nPlants that help this plant: \n{DisplayDict(sortedBeneficiaries)}\nPlants that this plant can help: \n{DisplayDict(sortedBenefactors)}");
+    //     }
+    //     else { Console.WriteLine("  None"); }
     // }
-    
-    
+    }    
 }

@@ -31,11 +31,11 @@ public class Picker<T>
             var itemList = items.ToList();
             for (int i = 0; i < itemList.Count; i++)
             {
-                itemList[i] = itemList[i].ToUpper();
+                itemList[i] = itemList[i].ToLower();
                 Console.WriteLine($"{itemList[i]}");//write out the list of all the words capitalized and not numberd
             }
             // get and capitalize the answer
-            string choice = Console.ReadLine().ToUpper();
+            string choice = Console.ReadLine().ToLower();
             //if that word is in the list return that word
             if (itemList.Contains(choice))
             {

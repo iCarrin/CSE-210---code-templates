@@ -1,0 +1,9 @@
+{
+  "$type": "System.Collections.Generic.List`1[[Plant, Sandbox]], System.Private.CoreLib",
+  "$values": [
+    {
+      "PlantType": "Harvestable",
+      "harvestTime": "mondays"
+    }
+  ]
+}

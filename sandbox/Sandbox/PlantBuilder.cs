@@ -94,19 +94,19 @@ class PlantBuilder
         string sowAndPlant = Console.ReadLine();
         List<string> beneficiaries = BuildList(true);
         List<string> benefactors = BuildList(false);
-        List<string> mutual = MutualList(ref beneficiaries, ref benefactors);
+        // List<string> mutual = MutualList(ref beneficiaries, ref benefactors);
         Plant newPlant;
         switch (plantType)
         {   
             case "Harvestable":
-                newPlant = new Harvestable(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                newPlant = new Harvestable(plantName, /*hardinessZone,*/ spacing,/* sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant,*/ beneficiaries, benefactors /*, mutual*/);
                 break;
             case "Flowering":
-                newPlant = new Flowering(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+                newPlant = new Flowering(plantName, /*hardinessZone,*/ spacing,/* sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant,*/ beneficiaries, benefactors /*, mutual*/);
                 break;
-            case "Plant":
-                newPlant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
-                break;
+            // case "Plant":
+            //     newPlant = new Plant(plantName, hardinessZone, spacing, sunLevel, soilType, perinial, frostTolerant, plantRotationFamily, sowAndPlant, beneficiaries, benefactors, mutual);
+            //     break;
             default:
                 throw new InvalidOperationException($"Unknown goal type: {plantType}");  
         }
@@ -136,7 +136,7 @@ class PlantBuilder
         Console.WriteLine(b ? "Add all plants that help the plant you're creating." : "Add all the plants that the plant you're creating helps");
         Console.WriteLine("Include duplicates\nType \"done\" when you've added them all");
         string answer = Console.ReadLine().ToUpper();
-        while (answer != "Done")
+        while (answer != "DONE")
         {   
             companionPlants.Add(answer);
             answer = Console.ReadLine().ToUpper();
