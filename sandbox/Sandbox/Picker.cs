@@ -2,7 +2,6 @@ public class Picker<T>
 {
     public T GetUserChoice(IEnumerable<T> items)
     {
-        // IEnumerable<T> items = listToPickFrom;
 
         while (true)
         {
@@ -28,16 +27,10 @@ public class Picker<T>
         while (true)
         {
             Console.WriteLine("Choose an option:");
-            var itemList = items.ToList();
-            for (int i = 0; i < itemList.Count; i++)
-            {
-                itemList[i] = itemList[i].ToLower();
-                Console.WriteLine($"{itemList[i]}");//write out the list of all the words capitalized and not numberd
-            }
             // get and capitalize the answer
             string choice = Console.ReadLine().ToLower();
             //if that word is in the list return that word
-            if (itemList.Contains(choice))
+            if (items.Contains(choice))
             {
                 return choice;//return that choice to the computer 
             }
@@ -46,7 +39,6 @@ public class Picker<T>
     }
     public int GetUserNumberChoice(int first, int count)
     {
-        // IEnumerable<T> items = listToPickFrom;
 
         while (true)
         {

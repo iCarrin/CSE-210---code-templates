@@ -26,6 +26,8 @@ class Menu
                 case 1:
                     Console.Clear();
                     BreathingActivity breathingActivity = new BreathingActivity();
+                    Type type = breathingActivity.GetType();
+                    Console.WriteLine(type);
                     breathingActivity.Run();
                     break;
                 case 2:

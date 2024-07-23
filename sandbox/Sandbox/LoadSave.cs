@@ -1,109 +1,137 @@
-// using Newtonsoft.Json;
-// public class LoadSave
-// {
-//     private readonly string saveDirectory = "allPlants";
-//     public LoadSave()
-//     {
-//         if (!Directory.Exists(saveDirectory))
-//         {
-//             Directory.CreateDirectory(saveDirectory);
-//         }
-//     }
+using Newtonsoft.Json;
+class LoadSave
+{   
+    
+    private readonly string saveDirectory = "saves";
 
-//     public void Save()
-//     {
-//        Plant myObject = new Plant();
-//        string jsonString = JsonConvert.SerializeObject(myObject);
-//     }
+    public LoadSave()
+    {
+        if (!Directory.Exists(saveDirectory))
+        {
+            Directory.CreateDirectory(saveDirectory);
+        }
+    }
 
-//     public List<string[]> GetSavedFiles()
-//     {
-//         List<string[]> savedFiles = new List<string[]>();
+    // private JsonSerializerSettings GetJsonSettings()
+    // {
+    //     return new JsonSerializerSettings
+    //     {
+    //         Formatting = Formatting.Indented,
+    //         TypeNameHandling = TypeNameHandling.Auto,
+    //         Converters = new List<JsonConverter> { new PlantConverter() }
+    //     };
+    // }
 
-//         string[] fileNames = Directory.GetFiles(saveDirectory);
+    public List<string[]> GetSavedFiles()
+    {
+        List<string[]> savedFiles = new List<string[]>();
 
-//         foreach (string filePath in fileNames)
-//         {
-//             string fileName = Path.GetFileName(filePath);
+        string[] fileNames = Directory.GetFiles(saveDirectory);
 
-//             string[] fileInfo = new string[2];
-//             fileInfo[0] = PathToName(fileName);
-//             fileInfo[1] = filePath;
+        foreach (string filePath in fileNames)
+        {
+            string fileName = Path.GetFileName(filePath);
 
-//             savedFiles.Add(fileInfo);
+            string[] fileInfo = new string[2];
+            fileInfo[0] = PathToName(fileName);
+            fileInfo[1] = filePath;
 
-//         }
-//         return savedFiles;
-//     }
-//     public Garden LoadFile(string fileName) 
-//     {
-//         string filePath = fileName;
+            savedFiles.Add(fileInfo);
 
-//         if (!filePath.Contains(saveDirectory))
-//         {
-//             // Add the save directory to the file path
-//             filePath = Path.Combine(saveDirectory, filePath);
-//         }
+        }
+        return savedFiles;
+    }
+    public Garden LoadFile(string fileName) 
+    {
+        string filePath = fileName;
 
-//         string fileContent = File.ReadAllText(filePath);
-//         return JsonConvert.DeserializeObject<Garden>(fileContent);
-//     }
-//     // public List<Plant> LoadPlantCatalog(string fileName) // I don't think I need this. I think I can deseralize a fixed list with a fixed location in the garden class
-//     // {
-//     //     string filePath = fileName;
+        if (!filePath.Contains(saveDirectory))
+        {
+            // Add the save directory to the file path
 
-//     //     if (!filePath.Contains(saveDirectory))
-//     //     {
-//     //         // Add the save directory to the file path
-//     //         filePath = Path.Combine(saveDirectory, filePath);
-//     //     }
+            filePath = Path.Combine(saveDirectory, filePath);
+        }
 
-//     //     string fileContent = File.ReadAllText(filePath);
-//     //     return JsonConvert.DeserializeObject<List<Plant>>(fileContent);
-//     // }
-//     public string NameToPath(string fileName) 
-//     {
-//         string lowerCaseName = fileName.ToLower();
-//         string safeFileName = lowerCaseName.Replace(" ", "-");
+        string fileContent = File.ReadAllText(filePath);
+        return JsonConvert.DeserializeObject<Garden>(fileContent);
+    }
+    public Plant LoadCatalog(string fileName) 
+    {
+        string filePath = fileName;
 
-//         return safeFileName;
-//     }
-//     public string PathToName(string filePath) 
-//     {
-//         string fileName = filePath.Replace("-", " ");
-//         string titleCaseName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileName);
+        if (!filePath.Contains(saveDirectory))
+        {
+            // Add the save directory to the file path
 
-//         return titleCaseName;
-//     }
-//     public void SaveFile(Garden plot) 
-//     {
-//         // Convert the quest name to a safe file path
-//         string filePath = this.NameToPath($"{plot.GetName()}.json");
+            filePath = Path.Combine(saveDirectory, filePath);
+        }
 
-//         // Check if the file path already contains the save directory
-//         if (!filePath.Contains(this.saveDirectory)) {
-//             // Add the save directory to the file path
-//             filePath = Path.Combine(this.saveDirectory, filePath);
-        // }
+        string[] fileContent = File.ReadAllText(filePath).Split("%%%");
+        Dictionary<string,Plant> allPlantsEver = new();
+        foreach (string i in fileContent)
+        {
+            string[] p = i.Split("~~");
+            List<string> benefic = p[8].Split("|").ToList();
+            List<string> benefac = p[9].Split("|").ToList();
+            Plant plant = new(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10]);
 
-        // // Serialize the quest object to JSON format
-        // string fileContent = JsonConvert.SerializeObject(plot, Formatting.Indented);
+        }
 
-        // // Write the content to the file
-        // File.WriteAllText(filePath, fileContent);
-//     }
+        return ;
+    }
+    
+    public string NameToPath(string fileName) 
+    {
+        string lowerCaseName = fileName.ToLower();
+        string safeFileName = lowerCaseName.Replace(" ", "-");
 
-//     public void SavePlantList(List<Plant> catalog)
-//     {
-//         string filePath = this.NameToPath($"{catalog.GetName()}.json");
+        return safeFileName;
+    }
+    public string PathToName(string filePath) 
+    {
+        string fileName = filePath.Replace("-", " ");
+        string titleCaseName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileName);
 
-//         if (!filePath.Contains(this.saveDirectory)) 
-//         {
-//             // Add the save directory to the file path
-//             filePath = Path.Combine(this.saveDirectory, filePath);
-//         }
+        return titleCaseName;
+    }
+    public void SaveFile(Garden plot) 
+    {
+        // Convert the quest name to a safe file path
+        string filePath = NameToPath($"{plot.GetName()}.json");
 
-//         string fileContent = JsonConvert.SerializeObject(catalog, Formatting.Indented);
-//         File.WriteAllText(filePath, fileContent);
-//     }
-// }
+        // Check if the file path already contains the save directory
+        if (!filePath.Contains(this.saveDirectory)) {
+            // Add the save directory to the file path
+            filePath = Path.Combine(this.saveDirectory, filePath);
+        }
+
+        // Serialize the quest object to JSON format
+        string fileContent = JsonConvert.SerializeObject(plot, Formatting.Indented);
+
+        // Write the content to the file
+        File.WriteAllText(filePath, fileContent);
+    }
+    public void SaveCatalog(Dictionary<string, Plant> catalog) 
+    {
+        // Convert the quest name to a safe file path
+        string filePath = NameToPath("AllPlants.json");
+
+        // Check if the file path already contains the save directory
+        if (!filePath.Contains(this.saveDirectory)) {
+            // Add the save directory to the file path
+            filePath = Path.Combine(this.saveDirectory, filePath);
+        }
+
+        // Serialize the quest object to JSON format
+        string fileContent = "";
+        foreach (KeyValuePair<string,Plant> kvp in catalog)
+        {
+            fileContent += "%%%" + kvp.Value.PlantInfoToString();
+        }
+
+        // Write the content to the file
+        File.WriteAllText(filePath, fileContent);
+    }
+
+    
+}

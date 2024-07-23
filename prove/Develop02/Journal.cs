@@ -46,16 +46,28 @@ class Journal
     {
         Console.WriteLine("What file would you like ot load from?");
         string location = Console.ReadLine();
-        string[] oldJournal = System.IO.File.ReadAllLines(location);
-        List<string> overwrite = new List<string>();
-        foreach (string j in oldJournal)
+         
+        List<string> overWrite = System.IO.File.ReadAllLines(location).ToList();
+        foreach (string j in overWrite)
             {
-                overwrite.Add(j);
+                overWrite.Add(j);
                 
-                //string[] eachEntry = j.Split("\", \"");
+                string[] eachEntry = j.Split("\", \"");
             }
-            journal = overwrite;
+            journal = overWrite;
        return journal;
+    }
+    public void Load()
+    {
+        Console.WriteLine("What file would you like ot load from?");
+        string location = Console.ReadLine();
+        using(StreamReader john = new(location))
+        {
+
+            string content = john.ReadToEnd();
+            content.Split("|");
+            
+        }
     }
 
     public int Menu()
