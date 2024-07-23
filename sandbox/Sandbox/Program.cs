@@ -5,7 +5,7 @@ class Program
     {
         LoadSave lS = new();
         Garden plot = null;
-        Dictionary<string, Plant> allPlantsEver = new();
+        Dictionary<string, Plant> allPlantsEver = lS.LoadCatalog("AllPlants");
     // try{
     //      allPlantsEver = JsonConvert.DeserializeObject<Dictionary<string, Plant>>(
     //     File.ReadAllText(@"C:\Users\isaia\OneDrive\Documents\School\Programming with Classes CSE 210\classes Code\CSE-210---code-templates\sandbox\Sandbox\EveryPlant.json"),
@@ -78,6 +78,7 @@ class Program
                         Plant plant = new PlantBuilder().BuildPlant();
                         
                         allPlantsEver.Add(plant.ToString(), plant);
+                        lS.SaveCatalog(allPlantsEver);
                         //lS.SavePlantList(allPlantsEver);
                         break;
                     case "Save garden":

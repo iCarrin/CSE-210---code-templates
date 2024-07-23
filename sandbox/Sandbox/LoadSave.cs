@@ -55,7 +55,7 @@ class LoadSave
         string fileContent = File.ReadAllText(filePath);
         return JsonConvert.DeserializeObject<Garden>(fileContent);
     }
-    public Plant LoadCatalog(string fileName) 
+    public Dictionary<string,Plant> LoadCatalog(string fileName) 
     {
         string filePath = fileName;
 
@@ -70,14 +70,25 @@ class LoadSave
         Dictionary<string,Plant> allPlantsEver = new();
         foreach (string i in fileContent)
         {
+            Plant plant;
             string[] p = i.Split("~~");
             List<string> benefic = p[8].Split("|").ToList();
-            List<string> benefac = p[9].Split("|").ToList();
-            Plant plant = new(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10]);
+            List<string> benefac = [.. p[9].Split("|")];
+            if (p.Count() == 12)
+            {
+                plant = new Perennial(p[0], int.Parse(p[1]), double.Parse(p[2]), p[3], p[4], bool.Parse(p[5]), p[6], p[7], p[8], benefic, benefac, p[11]);
+            }
+            else 
+            {
+                
+                 plant = new Annual(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10]);
+            }
+        
+            allPlantsEver.Add(p[0], plant);
 
         }
 
-        return ;
+        return allPlantsEver;
     }
     
     public string NameToPath(string fileName) 
