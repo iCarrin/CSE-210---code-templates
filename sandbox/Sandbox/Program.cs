@@ -6,21 +6,6 @@ class Program
         LoadSave lS = new();
         Garden plot = null;
         Dictionary<string, Plant> allPlantsEver = lS.LoadCatalog("AllPlants");
-    // try{
-    //      allPlantsEver = JsonConvert.DeserializeObject<Dictionary<string, Plant>>(
-    //     File.ReadAllText(@"C:\Users\isaia\OneDrive\Documents\School\Programming with Classes CSE 210\classes Code\CSE-210---code-templates\sandbox\Sandbox\EveryPlant.json"),
-    //     new JsonSerializerSettings
-    //     {
-    //         TypeNameHandling = TypeNameHandling.Auto,
-    //         Converters = new List<JsonConverter> { new PlantConverter() }
-    //     }
-    //     );
-    // }
-    // catch 
-    // {
-    //      allPlantsEver = null;
-    // }
-
 
         PlantBuilder test = new PlantBuilder();
         Picker<string> what = new Picker<string>();
@@ -94,8 +79,6 @@ class Program
 
                     // watering needs
                     //fix the .ToUpper problem espessially when it's typing out the benifical lists
-
-
                     //the add plant to garden method dosn't show this list of plants perhaps the catalog isn't grabing the json file
 
                 }

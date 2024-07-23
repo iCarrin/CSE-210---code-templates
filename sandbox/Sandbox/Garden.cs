@@ -77,7 +77,7 @@ class Garden
     //     //     }
     //     // }
 
-    // }
+    // }this is a method to be built out later.
     
 
     public void FindMatch()
@@ -137,5 +137,5 @@ class Garden
     //     Console.WriteLine("What's the new height?");
     //     out double height = double.Parse(Console.ReadLine());
     //     out double area = width * height;
-    // }
+    // } method for latter
 }

@@ -2,10 +2,7 @@ using Newtonsoft.Json;
 
 abstract class Plant
 {
-    //open intergrated terminal dotnet add package Newtonsoft.Json
-        // it just works
-        //but you can write a serilizer and deseriliser converters 
-        //a seperate constructor can call it;s own constructor from its own class
+   
 [JsonProperty]
 public string plantName;
 
@@ -60,10 +57,7 @@ public string notes;
     }
    
     
-    // public double GetSpacing()
-    // {
-    //     return spacing;
-    // }
+
     public void PrintAllLists(List<string> referanceList)
     {
        
@@ -124,42 +118,6 @@ public string notes;
     }
  
    
-    // public string PrintPlantInfo()
-    // {
-        // Console.WriteLine($"Plant Name: {plantName}");
-        // Console.WriteLine($"Spacing: {spacing} SQ inches");
-        // Console.WriteLine($"Sun Level: {sunLevel}");
-        // Console.WriteLine($"Soil Type: {soilType}");
-        // Console.WriteLine($"Frost Tolerant: {(frostTolerant ? "Yes" : "No")}");
-        // Console.WriteLine($"Plant Rotation Family: {plantRotationFamily}");
-        // Console.WriteLine($"Sow and Plant: {sowAndPlant}");
-        // Console.WriteLine($"How to harvest: {harvestTime}");
-        // Console.WriteLine($"Notes: {notes}");
-        // Console.WriteLine();
-        // Console.WriteLine();
-        
-        
-        // if (beneficiaries != null && beneficiaries.Any())
-        // {
-        //     foreach (var Beneficiary in beneficiaries)
-        //     {
-        //         Console.WriteLine($"  - {Beneficiary}");
-        //     }
-        // }
-        // else { Console.WriteLine("  None"); }
-
-        // Console.WriteLine("benefactors:");
-        // if (benefactors != null && benefactors.Any())
-        // {
-        //     foreach (var Benefactor in benefactors)
-        //     {
-        //         Console.WriteLine($"  - {Benefactor}");
-        //     }
-        // }
-        // else { Console.WriteLine("  None"); }
-        
-        
-    //   }    
 
     public string PlantInfoToString()
     

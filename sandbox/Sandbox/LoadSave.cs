@@ -12,16 +12,7 @@ class LoadSave
         }
     }
 
-    // private JsonSerializerSettings GetJsonSettings()
-    // {
-    //     return new JsonSerializerSettings
-    //     {
-    //         Formatting = Formatting.Indented,
-    //         TypeNameHandling = TypeNameHandling.Auto,
-    //         Converters = new List<JsonConverter> { new PlantConverter() }
-    //     };
-    // }
-
+ 
     public List<string[]> GetSavedFiles()
     {
         List<string[]> savedFiles = new List<string[]>();
