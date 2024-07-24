@@ -4,10 +4,12 @@
   "sunExposure": "FullSun",
   "growingZone": 4,
   "plantNames": [
-    "Cucumber"
+    "Cucumber",
+    "Blueberry",
+    "Blueberry"
   ],
   "plantsInGarden": {
-    "Cucumber": {}
+    "Blueberry": {}
   },
   "catalog": {
     "Basil": {},

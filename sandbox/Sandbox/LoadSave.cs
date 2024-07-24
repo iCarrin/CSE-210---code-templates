@@ -98,8 +98,8 @@ class LoadSave
                 {
                     Console.WriteLine(s);
                 }
-                List<string> benefic = p[8].Split("|").ToList();
-                List<string> benefac = [.. p[9].Split("|")];
+                List<string> benefic =[.. (p[8].Split("|") ?? Array.Empty<string>())];
+                List<string> benefac = [.. (p[9]?.Split("|") ?? Array.Empty<string>())];
                 if (p.Count() == 12)
                 {
                     plant = new Perennial(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10], int.Parse(p[11]));
