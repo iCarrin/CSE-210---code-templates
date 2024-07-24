@@ -1,14 +1,22 @@
 using Newtonsoft.Json;
+using System.Text;
+
 class LoadSave
 {   
     
     private readonly string saveDirectory = "saves";
+    private readonly string savePlantDirectory = "Plants";
+    private readonly string catalogOfPlants = "All Plants";
 
     public LoadSave()
     {
         if (!Directory.Exists(saveDirectory))
         {
             Directory.CreateDirectory(saveDirectory);
+        }
+        if (!Directory.Exists(savePlantDirectory))
+        {
+            Directory.CreateDirectory(savePlantDirectory);
         }
     }
 
@@ -18,11 +26,12 @@ class LoadSave
         List<string[]> savedFiles = new List<string[]>();
 
         string[] fileNames = Directory.GetFiles(saveDirectory);
+        
 
         foreach (string filePath in fileNames)
         {
             string fileName = Path.GetFileName(filePath);
-
+            
             string[] fileInfo = new string[2];
             fileInfo[0] = PathToName(fileName);
             fileInfo[1] = filePath;
@@ -46,40 +55,69 @@ class LoadSave
         string fileContent = File.ReadAllText(filePath);
         return JsonConvert.DeserializeObject<Garden>(fileContent);
     }
-    public Dictionary<string,Plant> LoadCatalog(string fileName) 
+    public Dictionary<string,Plant> LoadCatalog() 
     {
-        string filePath = fileName;
+         
 
-        if (!filePath.Contains(saveDirectory))
-        {
-            // Add the save directory to the file path
-
-            filePath = Path.Combine(saveDirectory, filePath);
-        }
-
-        string[] fileContent = File.ReadAllText(filePath).Split("%%%");
-        Dictionary<string,Plant> allPlantsEver = new();
-        foreach (string i in fileContent)
-        {
-            Plant plant;
-            string[] p = i.Split("~~");
-            List<string> benefic = p[8].Split("|").ToList();
-            List<string> benefac = [.. p[9].Split("|")];
-            if (p.Count() == 12)
-            {
-                plant = new Perennial(p[0], int.Parse(p[1]), double.Parse(p[2]), p[3], p[4], bool.Parse(p[5]), p[6], p[7], p[8], benefic, benefac, p[11]);
-            }
-            else 
-            {
-                
-                 plant = new Annual(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10]);
-            }
+        string[] fileName/*s*/ = Directory.GetFiles(savePlantDirectory);
         
-            allPlantsEver.Add(p[0], plant);
 
+        if (fileName.Count() > 0)
+        {
+            string file/*Name*/ = Path.GetFileName(fileName[0]/*Path*/);
+            
+            string[] fileInfo = new string[2];
+            
+            fileInfo[0] = PathToName(file/*Name*/);
+            
+            fileInfo[1] = fileName[0]/*Path*/;
+
+            string filePath = fileInfo[1];
+
+            
+            if (!filePath.Contains(savePlantDirectory))
+            {
+                // Add the save directory to the file path
+
+                filePath = Path.Combine(savePlantDirectory, filePath);
+            }
+            
+            string[] fileContent = File.ReadAllLines(filePath);
+            // Console.WriteLine(fileBigContent);
+            // string[] fileContent = fileBigContent.Split("%%%");
+            foreach (string s in fileContent) 
+                {
+                    Console.WriteLine(s);
+                }
+            Dictionary<string,Plant> allPlantsEver = new();
+            foreach (string i in fileContent)
+            {
+                Plant plant;
+                string[] p = i.Split("~~");
+                foreach (string s in p) 
+                {
+                    Console.WriteLine(s);
+                }
+                List<string> benefic = p[8].Split("|").ToList();
+                List<string> benefac = [.. p[9].Split("|")];
+                if (p.Count() == 12)
+                {
+                    plant = new Perennial(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10], int.Parse(p[11]));
+                }
+                else 
+                {
+                    
+                    plant = new Annual(p[0], double.Parse(p[1]), p[2], p[3], bool.Parse(p[4]), p[5], p[6], p[7], benefic, benefac, p[10]);
+                }
+            
+                allPlantsEver.Add(p[0], plant);
+            }
+            return allPlantsEver;
+            }
+        else
+        {
+            return new Dictionary<string, Plant>();
         }
-
-        return allPlantsEver;
     }
     
     public string NameToPath(string fileName) 
@@ -116,23 +154,30 @@ class LoadSave
     public void SaveCatalog(Dictionary<string, Plant> catalog) 
     {
         // Convert the quest name to a safe file path
-        string filePath = NameToPath("AllPlants.json");
+        string filePath = NameToPath(catalogOfPlants);
 
         // Check if the file path already contains the save directory
-        if (!filePath.Contains(this.saveDirectory)) {
+        if (!filePath.Contains(this.savePlantDirectory)) {
             // Add the save directory to the file path
-            filePath = Path.Combine(this.saveDirectory, filePath);
+            filePath = Path.Combine(this.savePlantDirectory, filePath);
         }
 
         // Serialize the quest object to JSON format
-        string fileContent = "";
-        foreach (KeyValuePair<string,Plant> kvp in catalog)
-        {
-            fileContent += "%%%" + kvp.Value.PlantInfoToString();
-        }
+        // StringBuilder fileContent = new StringBuilder();
+        // foreach (KeyValuePair<string,Plant> kvp in catalog)
+        // {
+        //     fileContent.AppendLine(kvp.Value.PlantInfoToString());
+        // }
 
-        // Write the content to the file
-        File.WriteAllText(filePath, fileContent);
+        // // Write the content to the file
+        // File.WriteAllText(filePath, fileContent.ToString());
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            foreach (KeyValuePair<string, Plant> kvp in catalog)
+            {
+                writer.WriteLine(kvp.Value.PlantInfoToString());
+            }
+        }
     }
 
     

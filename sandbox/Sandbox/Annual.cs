@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 class Annual : Plant
 {
    public Annual() : base()

@@ -72,4 +72,40 @@ public class Picker<T>
             Console.WriteLine("Invalid choice. Please try again.");
         }
     }
+    internal Plant GetUserPlantChoice(Dictionary<string, Plant> items)
+    {
+
+        while (true)
+        {
+            Console.WriteLine("Choose an option:");
+            var itemList = items.Keys.ToList();
+            int column = 0;
+            for (int i = 0; i < itemList.Count;i++)
+            {
+                
+                Console.Write($"{i+1}. {itemList[i]} ");
+                column++;
+                if (column > 5)
+                {
+                    column = 0;
+                    Console.WriteLine();
+                }
+                    // Console.Write($"{i+1}. {itemList[i]} ");
+                    // i++;
+                    // Console.Write($"{i+1}. {itemList[i]} ");
+                    // i++;
+                    // Console.Write($"{i+1}. {itemList[i]} ");
+                    // i++;
+                    // Console.Write($"{i+1}. {itemList[i]} ");
+                    // i++;  
+            }
+            // if it's an int that the use put in (if yes pass that to the choice variable) and its greater than 1, and smaller or equal to the length of the list
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= itemList.Count)
+            {
+                return items[itemList[choice - 1]];//return that choice to the computer with 1 subtracted so the computer can use it (0-n lists)
+            }
+            Console.WriteLine("Invalid choice. Please try again.");
+        }
+    }
+     
 }

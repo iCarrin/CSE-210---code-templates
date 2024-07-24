@@ -4,26 +4,30 @@ class Garden
 {
     
     [JsonProperty]
-    public string name;
+    private string name;
 
     [JsonProperty]
-    public double area;
+    private double area;
 
     [JsonProperty]
-    public string sunExposure;
+    private string sunExposure;
 
     [JsonProperty]
-    public int growingZone;
+    private int growingZone;
 
     [JsonProperty]
-    public Dictionary<string, Plant> plantsInGarden;
+    private List<string> plantNames;
+    [JsonIgnore]
+    private Dictionary<string, Plant> plantsInGarden;
 
-    [JsonProperty] // This property doesn't need to be serialized
+     // This property doesn't need to be serialized
+    [JsonIgnore]
     private Dictionary<string, Plant> catalog;
 
     
-        
+    [JsonIgnore]
     Picker<string> picker = new Picker<string>();
+    [JsonIgnore]
     Picker<Plant> plantPicker = new Picker<Plant>();
     
 
@@ -34,13 +38,21 @@ class Garden
         this.sunExposure = sunExposure;
         this.growingZone = growingZone;
         this.plantsInGarden = plantsInGarden ?? new Dictionary<string, Plant>();
-        // catalog = OrganizePlants(catalogNew);
+        //catalog = OrganizePlants(catalogNew);
         catalog = catalogNew;
+       
+        plantNames = this.plantsInGarden.Keys.ToList();
+        
+        
     }
 
     public string GetName()
     {
         return name;
+    }
+    public void PopCatalog(Dictionary<string, Plant> catalog)
+    {
+        this.catalog = catalog;
     }
     // public SortedDictionary<string, Plant> OrganizePlants(Dictionary<string,Plant> catalogToSort)
     // {
@@ -84,14 +96,32 @@ class Garden
     {
         if (plantsInGarden.Count != 0)
         {
-            List<string> cat;
-            Console.WriteLine("Find a match for a plant currently in the garden?");
+            
+            Console.WriteLine("Are you finding a match for a plant currently in the garden?");
             bool where = picker.GetUserBoolChoice("Y", "N");
             Console.WriteLine("What plant are you considering?"); 
-            Plant matchA = plantPicker.GetUserChoice(where ? plantsInGarden.Values : catalog.Values);
-            cat = matchA.beneficiaries.Concat(matchA.benefactors).ToList();
-            matchA.PrintAllLists(cat);
-            AddPlant();
+            Plant matchA = plantPicker.GetUserPlantChoice(where ? plantsInGarden : catalog);
+            bool which = picker.GetUserBoolChoice("beneficiar", "Benefactor");
+            string matchFinal;
+            if (which == true)
+            {
+                matchFinal = picker.GetUserChoice(matchA.Benefs(true));
+            }
+            else
+            {
+                matchFinal = picker.GetUserChoice(matchA.Benefs(false));
+            }
+            if (catalog.ContainsKey(matchFinal))
+            {
+                plantsInGarden.Add(matchFinal, catalog[matchFinal]);
+                plantNames.Add(matchFinal);
+            }
+            else
+            {
+                Console.WriteLine("That plant has a typo in it's name or it hasn't been created.");
+                Thread.Sleep(2000);
+            }
+            
         }
 
     }
@@ -99,18 +129,10 @@ class Garden
     public void AddPlant()
     {
         Console.WriteLine("What plant do you want to add?");
-        while (true)
-        {
-            string plantName = Console.ReadLine().ToLower();
-                       
-            //if that word is in the list return that word
-            if (catalog.Keys.Contains(plantName))
-            {
-                plantsInGarden.Add(plantName,catalog[plantName]);
-                break;
-            }
-            Console.WriteLine("Invalid choice. Please try again.");
-        }
+        Plant toAdd = plantPicker.GetUserPlantChoice(catalog);
+        plantsInGarden.Add(toAdd.GetName(), toAdd);
+        plantNames.Add(toAdd.GetName());
+        
     }
 
     public void RemovePlant()

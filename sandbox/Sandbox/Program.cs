@@ -1,15 +1,15 @@
-using Newtonsoft.Json;
+
 class Program
 {
     static void Main(string[] args)
     {
         LoadSave lS = new();
-        Garden plot = null;
-        Dictionary<string, Plant> allPlantsEver = lS.LoadCatalog("AllPlants");
+        Garden plot;
+        Dictionary<string, Plant> allPlantsEver = lS.LoadCatalog();
 
         PlantBuilder test = new PlantBuilder();
         Picker<string> what = new Picker<string>();
-        // Picker<int> who = new();
+        Picker<Plant> plantPicker = new Picker<Plant>();
         GardenBuilder newGar = new(allPlantsEver);
         string[] menuList =
         {
@@ -38,9 +38,10 @@ class Program
             else
             {
                 
-                Console.WriteLine(savedFiles[possibleGardens-2][1]);
+                
                 plot = lS.LoadFile(savedFiles[possibleGardens-2][1]);
-                Console.WriteLine(plot);
+                plot.PopCatalog(allPlantsEver);
+
             }
 
 
@@ -51,6 +52,7 @@ class Program
                 switch (choice)
                 {
                     case "Add a plant from the catalog to the garden":
+                        Console.WriteLine(allPlantsEver.Count);
                         plot.AddPlant();
                         break;
                     case "Find a companion plant":

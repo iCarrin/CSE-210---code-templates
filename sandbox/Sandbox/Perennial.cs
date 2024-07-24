@@ -1,18 +1,14 @@
-using Newtonsoft.Json;
+
 class Perennial : Plant
 {
-    [JsonProperty]
     private int hardinessZone;
-    public int HardinessZone
-    {
-        get;
-    }
+    
     Picker<int> intPicker = new();
     public Perennial() : base()
     {
 
     }
-    public Perennial(string name, int hardinessZone, double spacing, string sunLevel, string soilType,  bool frostTolerant, string plantRotationFamily, string sowAndPlant, string harvestTime, List<string> beneficiaries, List<string> benefacotrs, string notes) 
+    public Perennial(string name, double spacing, string sunLevel, string soilType,  bool frostTolerant, string plantRotationFamily, string sowAndPlant, string harvestTime, List<string> beneficiaries, List<string> benefacotrs, string notes, int hardinessZone) 
     : base(name, spacing, sunLevel, soilType, frostTolerant, plantRotationFamily,sowAndPlant, harvestTime, beneficiaries, benefacotrs, notes )
     {
         
