@@ -2,33 +2,21 @@ using Newtonsoft.Json;
 [JsonConverter(typeof(GardenConverter))]
 class Garden 
 {
-    
+
     [JsonProperty]
     private string name;
-
     [JsonProperty]
     private double area;
-
     [JsonProperty]
     private string sunExposure;
-
     [JsonProperty]
     private int growingZone;
-
     [JsonProperty]
     private List<string> plantNames;
-    [JsonIgnore]
     private Dictionary<string, Plant> plantsInGarden;
-
-     // This property doesn't need to be serialized
-    [JsonIgnore]
-    private Dictionary<string, Plant> catalog;
-
-    
-    [JsonIgnore]
-    Picker<string> picker = new Picker<string>();
-    [JsonIgnore]
-    Picker<Plant> plantPicker = new Picker<Plant>();
+    private Dictionary<string, Plant> catalog;   
+    private Picker<string> picker = new Picker<string>();
+    private Picker<Plant> plantPicker = new Picker<Plant>();
     
 
     public Garden(string name, double area, string sunExposure, int growingZone, Dictionary<string, Plant> plantsInGarden, Dictionary<string, Plant> catalogNew) 

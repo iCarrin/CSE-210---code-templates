@@ -1,0 +1,21 @@
+{
+  "name": "5th ",
+  "area": 300000.0,
+  "sunExposure": "FullSun",
+  "growingZone": 4,
+  "plantNames": [
+    "Cucumber"
+  ],
+  "plantsInGarden": {
+    "Cucumber": {}
+  },
+  "catalog": {
+    "Basil": {},
+    "Pepper": {},
+    "Grape Vine": {},
+    "Cucumber": {},
+    "Blueberry": {}
+  },
+  "picker": {},
+  "plantPicker": {}
+}

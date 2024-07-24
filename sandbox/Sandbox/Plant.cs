@@ -104,7 +104,7 @@ abstract class Plant
  
    
 
-    public string PlantInfoToString()
+    public virtual string PlantInfoToString()
     
     {
             string bigBenefic = "";

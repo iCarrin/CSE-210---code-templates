@@ -162,15 +162,7 @@ class LoadSave
             filePath = Path.Combine(this.savePlantDirectory, filePath);
         }
 
-        // Serialize the quest object to JSON format
-        // StringBuilder fileContent = new StringBuilder();
-        // foreach (KeyValuePair<string,Plant> kvp in catalog)
-        // {
-        //     fileContent.AppendLine(kvp.Value.PlantInfoToString());
-        // }
-
-        // // Write the content to the file
-        // File.WriteAllText(filePath, fileContent.ToString());
+        
         using (StreamWriter writer = new StreamWriter(filePath))
         {
             foreach (KeyValuePair<string, Plant> kvp in catalog)
