@@ -14,8 +14,9 @@ class Program
         string[] menuList =
         {
             "Add a plant from the catalog to the garden",
-            "Find a companion plant",
             "Remove a plant from the garden",
+            "Find a companion plant",
+            "Show all the plants in the garden",
             "Create a new plant from scratch",
             "Save garden",
             "Quit"
@@ -34,6 +35,7 @@ class Program
             if (possibleGardens == 1)
             {
                 plot = newGar.Create();
+                plot.PopCatalog(allPlantsEver);
             }
             else
             {
@@ -44,9 +46,10 @@ class Program
 
             }
 
-
+            
             while(choice != "Quit")
             {
+                Console.Clear();
                 choice = what.GetUserChoice(menuList);
 
                 switch (choice)
@@ -64,15 +67,19 @@ class Program
                     case "Create a new plant from scratch":
                         Plant plant = new PlantBuilder().BuildPlant();
                         
-                        allPlantsEver.Add(plant.ToString(), plant);
+                        allPlantsEver.Add(plant.GetName(), plant);
                         lS.SaveCatalog(allPlantsEver);
                         //lS.SavePlantList(allPlantsEver);
                         break;
                     case "Save garden":
                         lS.SaveFile(plot);
                         break;
+                    case "Show all the plants in the garden":
+                        plot.DisplayPlantsInGarden();
+                        break;
                     case "Quit":
                         lS.SaveFile(plot);
+                        
                         break;
                     default:
                         Console.WriteLine("Invalid choice!\n");

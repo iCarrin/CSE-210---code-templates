@@ -78,7 +78,7 @@ public class Picker<T>
 
         while (true)
         {
-            Console.WriteLine("Choose an option: ");
+            Console.WriteLine("Choose an option:");
             var itemList = items.Keys.ToList();
             int column = 0;
             for (int i = 0; i < itemList.Count;i++)
@@ -97,6 +97,7 @@ public class Picker<T>
             {
                 return items[itemList[choice - 1]];//return that choice to the computer with 1 subtracted so the computer can use it (0-n lists)
             }
+            
             
             Console.WriteLine("Invalid choice. Please try again.");
         }

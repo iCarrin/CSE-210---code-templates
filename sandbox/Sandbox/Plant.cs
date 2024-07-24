@@ -1,7 +1,9 @@
 abstract class Plant
 {
     private string plantName;
+    public string PlantName {get;}
     private double spacing;
+    public double Spacing {get;}
     private string sunLevel;
     private string soilType;
     private bool frostTolerant;
@@ -33,56 +35,7 @@ abstract class Plant
        
     }
    
-    public string GetName()
-    {
-        return plantName;
-    }
 
-    // public void PrintAllLists(List<string> referanceList)
-    // {
-       
-    //     if (beneficiaries.Count != 0) 
-    //     {
-    //         _ = SortSmallList(referanceList, beneficiaries);
-    //         Console.WriteLine($"Plants that help {plantName}: ");
-            
-    //         for (int i = 0; i < beneficiaries.Count;)
-    //         {
-    //             Console.Write($"{beneficiaries[i]} ");
-    //             i++;
-    //             Console.Write($"{beneficiaries[i+1]} ");
-    //             i++;
-    //             Console.Write($"{beneficiaries[i+2]} ");
-    //             i++;
-    //             Console.Write($"{beneficiaries[i+3]} ");
-    //             i++;
-    //             Console.Write($"{beneficiaries[i+4]} ");
-    //             i++;
-    //             Console.WriteLine();  
-    //         }
-
-            
-        // };
-    //     if (benefactors.Count != 0) 
-    //     {
-    //         _ = SortSmallList(referanceList, beneficiaries);
-    //         Console.WriteLine($"Plants that {plantName} helps \n{SortSmallList(referanceList, benefactors)}");
-    //         for (int i = 0; i < benefactors.Count;)
-    //         {
-    //             Console.Write($"{benefactors[i]} ");
-    //             i++;
-    //             Console.Write($"{benefactors[i+1]} ");
-    //             i++;
-    //             Console.Write($"{benefactors[i+2]} ");
-    //             i++;
-    //             Console.Write($"{benefactors[i+3]} ");
-    //             i++;
-    //             Console.Write($"{benefactors[i+4]} ");
-    //             i++;
-    //             Console.WriteLine();  
-    //         }
-    //     };
-    // }
     public List<string> Benefs(bool which)
     {
         List<string> benef = which ? beneficiaries : benefactors;
@@ -94,16 +47,11 @@ abstract class Plant
             .OrderBy(referanceList.IndexOf)
             .ToList();
         return sortedList;
-    }
-
-    public override string ToString()
+    }   
+    public string GetName()
     {
         return plantName;
-        
     }
- 
-   
-
     public virtual string PlantInfoToString()
     
     {

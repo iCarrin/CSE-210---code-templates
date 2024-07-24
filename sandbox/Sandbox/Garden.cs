@@ -1,4 +1,7 @@
+using System.Collections.Specialized;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 [JsonConverter(typeof(GardenConverter))]
 class Garden 
 {
@@ -14,7 +17,7 @@ class Garden
     [JsonProperty]
     private List<string> plantNames;
     private Dictionary<string, Plant> plantsInGarden;
-    private Dictionary<string, Plant> catalog;   
+    private /*OrderedDictionary*/Dictionary<string, Plant> catalog;   
     private Picker<string> picker = new Picker<string>();
     private Picker<Plant> plantPicker = new Picker<Plant>();
     
@@ -26,7 +29,7 @@ class Garden
         this.sunExposure = sunExposure;
         this.growingZone = growingZone;
         this.plantsInGarden = plantsInGarden ?? new Dictionary<string, Plant>();
-        //catalog = OrganizePlants(catalogNew);
+        
         catalog = catalogNew;
        
         plantNames = this.plantsInGarden.Keys.ToList();
@@ -34,50 +37,87 @@ class Garden
         
     }
 
-    public string GetName()
-    {
-        return name;
-    }
     public void PopCatalog(Dictionary<string, Plant> catalog)
     {
         this.catalog = catalog;
     }
-    // public SortedDictionary<string, Plant> OrganizePlants(Dictionary<string,Plant> catalogToSort)
+    
+    public void DisplayPlantsInGarden()
+    {
+        int column = 0;
+        
+        for (int i = 0; i < plantNames.Count;i++)
+        {
+            
+            Console.Write($"{i+1}. {plantNames[i]} ");
+            column++;
+            if (column > 5)
+            {
+                column = 0;
+                Console.WriteLine();
+            } 
+        }
+        Console.ReadLine();
+    }
+    public string GetName()
+    {
+        return name;
+    }
+    // public void OrganizePlants(Dictionary<string,Plant> catalogToSort)
     // {
-    //     SortedDictionary<string, Plant> results = new SortedDictionary<string,Plant>();
+    //     foreach (KeyValuePair<string,Plant> p in catalogToSort)
+    //             {
+    //                 Console.WriteLine(p.Value.PlantName);
+    //             }
+        
     //     int orderNum = 0;
-    //     var values = catalogToSort.Values.ToList();
+    //     List<Plant> values = catalogToSort.Values.ToList();
+    //     List<Plant> toMove = new List<Plant>();
+    //     foreach (Plant p in values)
+    //             {
+    //                 Console.WriteLine(p.PlantName);
+    //             }
+
     //     foreach (Plant p in values)
     //     {
     //         if (p.Spacing > area)
     //         {
-    //             values.Remove(p);
-    //             values.Add(p);
+    //             toMove.Add(p);
     //         }
     //         else 
     //         {
     //             orderNum++;
     //         }
     //     }
-    //     foreach(var p in values)
+    //     foreach (Plant p in toMove)
     //     {
-    //         results.Add(p.ToString(), p);
+    //         values.Remove(p);
+    //         values.Add(p);
     //     }
-    //     return results;
-    //     // foreach (Plant p in catalog)
-    //     // {
-    //     //     if (p.HardinessZone > area)
-    //     //     {
-    //     //         catalog.Remove(p);
-    //     //         catalog.Add(p);
-    //     //     }
-    //     //     else 
-    //     //     {
-    //     //         orderNum++;
-    //     //     }
-    //     // }
-
-    // }this is a method to be built out later.
+    //     toMove.Clear();
+    //     for(int i = 0; i < orderNum; i++)
+    //     {
+    //         if ( values[i] is Perennial perennial)
+    //         {   
+    //             if (perennial.HardinessZone > growingZone)
+    //             {
+    //                 toMove.Add(perennial);
+    //                 values.RemoveAt(i);
+    //                 i--;       
+    //             }
+    //         }
+    //     }
+    //     foreach (Plant p in toMove)
+    //     {
+    //         values.Add(p);
+    //     }
+    //     var results = new OrderedDictionary();
+    //     foreach(Plant p in values)
+    //     {
+    //         results.Add(p.PlantName, p);
+    //     }
+    //     catalog = results;
+    // }
     
 
     public void FindMatch()
@@ -100,9 +140,9 @@ class Garden
             {
                 matchFinal = picker.GetUserChoice(matchA.Benefs(false));
             }
-            if (catalog.ContainsKey(matchFinal))
+            if (catalog.Keys.Contains(matchFinal))
             {
-                plantsInGarden.Add(matchFinal, catalog[matchFinal]);
+                plantsInGarden.Add(matchFinal, (Plant)catalog[matchFinal]);
                 plantNames.Add(matchFinal);
             }
             else
@@ -119,6 +159,7 @@ class Garden
     {
         Console.WriteLine("What plant do you want to add?");
         Plant toAdd = plantPicker.GetUserPlantChoice(catalog);
+        
         plantsInGarden.Add(toAdd.GetName(), toAdd);
         plantNames.Add(toAdd.GetName());
         
@@ -129,7 +170,7 @@ class Garden
          Console.WriteLine("What plant do you want to remove?");
         while (true)
             {
-                string plantName = Console.ReadLine().ToLower();
+                string plantName = picker.GetUserChoice(plantNames);
                         
                 //if that word is in the list return that word
                 if (catalog.Keys.Contains(plantName))

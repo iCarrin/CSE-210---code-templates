@@ -41,11 +41,7 @@ public class GardenConverter : JsonConverter
         
         Garden plot = (Garden)value;
         
-        // Garden plot = (Garden)value;
-
-        // jo.Add("Garden Name", plot.GetName());
-        
-        
+      
 
         // Get all fields (public and non-public) of the goal
         var fields = plot.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -56,7 +52,7 @@ public class GardenConverter : JsonConverter
                 var fieldValue = field.GetValue(plot);
                 jo.Add(field.Name, JToken.FromObject(fieldValue, serializer));
             } catch (Exception ex) {
-                Console.WriteLine($"Error reading field: {ex.Message}");
+                Console.WriteLine($"Error reading field {field}: {ex.Message}");
             }
         }
         jo.WriteTo(writer);

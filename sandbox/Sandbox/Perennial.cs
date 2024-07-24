@@ -2,6 +2,7 @@
 class Perennial : Plant
 {
     private int hardinessZone;
+    public int HardinessZone {get;}
     
     Picker<int> intPicker = new();
     public Perennial() : base()

@@ -83,21 +83,12 @@ class LoadSave
             }
             
             string[] fileContent = File.ReadAllLines(filePath);
-            // Console.WriteLine(fileBigContent);
-            // string[] fileContent = fileBigContent.Split("%%%");
-            foreach (string s in fileContent) 
-                {
-                    Console.WriteLine(s);
-                }
             Dictionary<string,Plant> allPlantsEver = new();
             foreach (string i in fileContent)
             {
                 Plant plant;
                 string[] p = i.Split("~~");
-                foreach (string s in p) 
-                {
-                    Console.WriteLine(s);
-                }
+                
                 List<string> benefic =[.. (p[8].Split("|") ?? Array.Empty<string>())];
                 List<string> benefac = [.. (p[9]?.Split("|") ?? Array.Empty<string>())];
                 if (p.Count() == 12)
@@ -150,6 +141,7 @@ class LoadSave
 
         // Write the content to the file
         File.WriteAllText(filePath, fileContent);
+        Thread.Sleep(5000);
     }
     public void SaveCatalog(Dictionary<string, Plant> catalog) 
     {
