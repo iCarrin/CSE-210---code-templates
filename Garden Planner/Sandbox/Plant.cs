@@ -41,13 +41,7 @@ abstract class Plant
         List<string> benef = which ? beneficiaries : benefactors;
         return benef;
     }
-    private List<string> SortSmallList(List<string> referanceList, List<string> toSort)
-    {
-         var sortedList = toSort
-            .OrderBy(referanceList.IndexOf)
-            .ToList();
-        return sortedList;
-    }   
+      
     public string GetName()
     {
         return plantName;

@@ -1,0 +1,42 @@
+{
+  "name": "10th",
+  "area": 234523452345.0,
+  "sunExposure": "FullSun",
+  "growingZone": 5,
+  "plantNames": [
+    "Grape Vine",
+    "Basil"
+  ],
+  "plantsInGarden": {
+    "Basil": {
+      "PlantName": null,
+      "Spacing": 0.0
+    }
+  },
+  "catalog": {
+    "Basil": {
+      "PlantName": null,
+      "Spacing": 0.0
+    },
+    "Pepper": {
+      "PlantName": null,
+      "Spacing": 0.0
+    },
+    "Grape Vine": {
+      "HardinessZone": 0,
+      "PlantName": null,
+      "Spacing": 0.0
+    },
+    "Cucumber": {
+      "PlantName": null,
+      "Spacing": 0.0
+    },
+    "Blueberry": {
+      "HardinessZone": 0,
+      "PlantName": null,
+      "Spacing": 0.0
+    }
+  },
+  "picker": {},
+  "plantPicker": {}
+}
